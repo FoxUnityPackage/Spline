@@ -5,20 +5,21 @@ using UnityEditor;
 using UnityEngine;
 
 // A tiny custom editor for ExampleScript component
-[CustomEditor(typeof(CatmullRomSpline))]
-public class CatmullRomSplineEditor : Editor
+[CustomEditor(typeof(BezierSpline))]
+public class BezierSplineEditor : Editor
 {
     // Custom in-scene UI for when Spline script
     // component is selected.
     private float pointSize = 0.1f;
     private int splineDivision = 20;
     private bool isExtremityAdd = false;
-    private CatmullRomSpline self = null;
+    private bool isContinues = true;
+    private BezierSpline self = null;
     
     
     private void OnEnable()
     {
-        self = target as CatmullRomSpline;
+        self = target as BezierSpline;
     }
 
     protected virtual void OnSceneGUI()
@@ -31,11 +32,23 @@ public class CatmullRomSplineEditor : Editor
         
         for (int i = 0; i < self.points.Count; i++)
         {
-            Handles.color = Color.green;
+            bool isVelocityHandle = isContinues && i > 4 && i % 4 - 1 == 0;
+            bool isDirectionHandle = isContinues && i + 3 < self.points.Count && i % 4 - 2 == 0;
+            
+            Handles.color = isVelocityHandle ?  Color.cyan : isDirectionHandle ? Color.blue : Color.green;
             Vector3 newPos = Handles.FreeMoveHandle( self.points[i].point, Quaternion.identity,
                 HandleUtility.GetHandleSize( self.points[i].point) * pointSize, Vector3.one, Handles.SphereHandleCap);
-            
-            self.points[i] = new CatmullRomSpline.Point{point = newPos};
+
+            if (isVelocityHandle)
+            {
+                Vector3 dir = Vector3.Normalize(self.points[i - 2].point - self.points[i - 3].point);
+                float velocity = Vector3.Magnitude(newPos - self.points[i - 1].point);
+                self.points[i] = new BezierSpline.Point
+                    {point = self.points[i - 1].point + dir * velocity};
+            }
+            else
+                self.points[i] = new BezierSpline.Point{point = newPos};
+
         }
     }
 
@@ -71,6 +84,36 @@ public class CatmullRomSplineEditor : Editor
                     self.points.RemoveAt(self.points.Count - 1);
                 }
                 EditorUtility.SetDirty(target);
+            }
+
+            
+            // Options available only for 2 portions curve
+            if (self.points.Count > 7)
+            {
+                EditorGUI.BeginChangeCheck();
+                if (GUILayout.Button("Link portion"))
+                {
+                    for (int i = 3; i < self.points.Count - 1; i += 4)
+                    {
+                        self.points[i + 1] = self.points[i];
+                    }
+
+                    EditorUtility.SetDirty(target);
+                }
+                
+                EditorGUI.BeginChangeCheck();
+                isContinues = EditorGUILayout.Toggle("Is continuity smooth", isContinues);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    //if (isContinues)
+                    //{
+                    //    for (int i = 2; i < self.points.Count - 3; i += 4)
+                    //    {
+                    //        self.points[i + 3] = new BezierSpline.Point{point = self.points[i + 2].point + self.points[i + 1].point - self.points[i].point};
+                    //    }
+                    //}
+                    EditorUtility.SetDirty(target);
+                }
             }
         }
     }

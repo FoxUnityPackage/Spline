@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,11 +10,15 @@ public class HermitianSplineEditor : Editor
     private float pointSize = 0.1f;
     private float handleSize = 0.25f;
     private int splineDivision = 20;
+    private HermitianSpline self = null;
+
+    private void OnEnable()
+    {
+        self = target as HermitianSpline;
+    }
 
     protected virtual void OnSceneGUI()
     {
-        HermitianSpline self = target as HermitianSpline;
-
         if (!self.enabled)
             return;
         
@@ -37,10 +39,23 @@ public class HermitianSplineEditor : Editor
             Vector3 newHandlePos = Handles.FreeMoveHandle(handlePos, Quaternion.identity,
                 HandleUtility.GetHandleSize(handlePos) * handleSize, Vector3.one, Handles.SphereHandleCap);
 
-            var temp = new HermitianSpline.Point();
-            temp.point = newPos;
-            temp.derivative = newHandlePos - self.points[i].point;
-            self.points[i] = temp;
+            self.points[i] = new HermitianSpline.Point{point = newPos, derivative =  newHandlePos - self.points[i].point};
+        }
+    }
+    
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        SplineEditorUtility.DrawUILine(Color.gray);
+        GUILayout.Label("Editor settings :");
+        pointSize = EditorGUILayout.FloatField("Point size", pointSize);
+        EditorGUI.BeginChangeCheck();
+        splineDivision = EditorGUILayout.IntField("Curve precision", splineDivision);
+        if (EditorGUI.EndChangeCheck())
+        {
+            splineDivision = Mathf.Clamp(splineDivision, 3, 1000);
+            EditorUtility.SetDirty(target);
         }
     }
 }

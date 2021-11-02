@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
-public class CatmullRomSpline : Spline
+
+public class BezierSpline : Spline
 {
     private static Matrix4x4 constantMatrix =
         new Matrix4x4(
-            new Vector4(-0.5f, 1.5f, -1.5f, 0.5f),
-            new Vector4(1f, -2.5f, 2f, -0.5f),
-            new Vector4(-0.5f, 0f, 0.5f, 0f),
-            new Vector4(0f, 1f, 0f, 0f)
+            new Vector4(-1f, 3f, -3f, 1f),
+            new Vector4(3f, -6f, 3f, 0f),
+            new Vector4(-3f, 3f, 0f, 0f),
+            new Vector4(1f, 0f, 0f, 0f)
         );
 
     [System.Serializable]
@@ -22,20 +24,20 @@ public class CatmullRomSpline : Spline
     public override Vector3 GetInterpolation(int pointIndex, float t)
     {
         t = Mathf.Clamp01(t);
-        
+
         Vector4 tVec = new Vector4(t*t*t, t*t, t, 1f);
         Matrix4x4 pointsMatrix = new Matrix4x4(
-            points[pointIndex - 3].point,
-            points[pointIndex - 2].point,
-            points[pointIndex - 1].point,
-            points[pointIndex].point);
+            points[pointIndex].point,
+            points[pointIndex + 1].point,
+            points[pointIndex + 2].point,
+            points[pointIndex + 3].point);
 
         return pointsMatrix * constantMatrix * tVec;
     }
-    
+
     public override Vector3[] MakeSplinePoints(int divisionBySpline)
     {
-        int totalPoint = points.Count - 3;   
+        int totalPoint = (points.Count - points.Count % 4) / 4;
         Vector3[] pointsRst = new Vector3[divisionBySpline * totalPoint];
         float step = 1f / (divisionBySpline - 1);
         
@@ -44,7 +46,7 @@ public class CatmullRomSpline : Spline
             float t = 0f;
             for (int j = 0; j < divisionBySpline; j++)
             {
-                pointsRst[i * divisionBySpline + j] = GetInterpolation(i + 3, t);
+                pointsRst[i * divisionBySpline + j] = GetInterpolation(i * 4, t);
                 t += step;
             }
         }

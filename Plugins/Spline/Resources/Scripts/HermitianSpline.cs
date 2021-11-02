@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 public class HermitianSpline : Spline
 {
@@ -23,7 +22,7 @@ public class HermitianSpline : Spline
     
     public override Vector3 GetInterpolation(int pointIndex, float t)
     {
-        Assert.IsFalse(t < 0f || t > 1f);
+        t = Mathf.Clamp01(t);
         
         Vector4 tVec = new Vector4(t*t*t, t*t, t, 1f);
         Matrix4x4 pointsMatrix = new Matrix4x4(
