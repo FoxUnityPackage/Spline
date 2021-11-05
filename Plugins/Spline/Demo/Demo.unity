@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 1932000998}
   - component: {fileID: 1932000999}
   - component: {fileID: 1932001000}
+  - component: {fileID: 1932001001}
   m_Layer: 0
   m_Name: Spline
   m_TagString: Untagged
@@ -307,15 +308,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - point: {x: 11.603523, y: 1.9700136, z: -0.28727913}
-  - point: {x: 7.4960227, y: 13.953358, z: -1.4394875}
-  - point: {x: 0.5329006, y: 20.876705, z: -3.0517006}
+  - point: {x: 23.888103, y: 13.714658, z: -2.442604}
+  - point: {x: 3.7783313, y: 17.682974, z: -2.1913052}
   - point: {x: -0.6449065, y: 11.140739, z: -2.9182987}
   - point: {x: -0.6449065, y: 11.140739, z: -2.9182987}
-  - point: {x: -1.2170942, y: 6.4109325, z: -2.853491}
-  - point: {x: -15.003363, y: 10.601976, z: -1.3492699}
+  - point: {x: -3.0994213, y: 7.5103645, z: -3.3217173}
+  - point: {x: -15.694353, y: 9.576326, z: -1.1532173}
   - point: {x: -16.868904, y: 0.636096, z: -0.1182518}
   - point: {x: -16.868904, y: 0.636096, z: -0.1182518}
-  - point: {x: -17.186352, y: -1.0597364, z: 0.09122294}
+  - point: {x: -17.093813, y: -1.0758272, z: 0.07992895}
+--- !u!114 &1932001001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932000996}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d738c32dbb8ef64ea1090467b70f02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points:
+  - point: {x: 18.866169, y: 3.1238117, z: -3.0478916}
+  - point: {x: 12.242007, y: 10.369186, z: -3.16148}
+  - point: {x: -6.853005, y: 1.6350079, z: -0.7238827}
+  - point: {x: -7.6660666, y: 15.629688, z: -2.9662151}
 --- !u!1 &1991012853
 GameObject:
   m_ObjectHideFlags: 0
