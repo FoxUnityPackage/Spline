@@ -103,17 +103,6 @@ public class BezierSplineEditor : Editor
                 
                 EditorGUI.BeginChangeCheck();
                 isContinues = EditorGUILayout.Toggle("Is continuity smooth", isContinues);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    //if (isContinues)
-                    //{
-                    //    for (int i = 2; i < self.points.Count - 3; i += 4)
-                    //    {
-                    //        self.points[i + 3] = new BezierSpline.Point{point = self.points[i + 2].point + self.points[i + 1].point - self.points[i].point};
-                    //    }
-                    //}
-                    EditorUtility.SetDirty(target);
-                }
             }
         }
     }

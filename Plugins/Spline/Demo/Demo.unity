@@ -228,6 +228,10 @@ GameObject:
   - component: {fileID: 1932000998}
   - component: {fileID: 1932000999}
   - component: {fileID: 1932001000}
+  - component: {fileID: 1932001005}
+  - component: {fileID: 1932001004}
+  - component: {fileID: 1932001003}
+  - component: {fileID: 1932001002}
   - component: {fileID: 1932001001}
   m_Layer: 0
   m_Name: Spline
@@ -301,22 +305,22 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1932000996}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33e42ea119926264283174899e1d29dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - point: {x: 11.603523, y: 1.9700136, z: -0.28727913}
-  - point: {x: 23.888103, y: 13.714658, z: -2.442604}
-  - point: {x: 3.7783313, y: 17.682974, z: -2.1913052}
+  - point: {x: 13.255383, y: 16.208258, z: -7.0314484}
+  - point: {x: 5.143386, y: 15.08226, z: -7.894555}
+  - point: {x: 2.0857835, y: 10.853373, z: 1.461071}
   - point: {x: -0.6449065, y: 11.140739, z: -2.9182987}
   - point: {x: -0.6449065, y: 11.140739, z: -2.9182987}
-  - point: {x: -3.0994213, y: 7.5103645, z: -3.3217173}
-  - point: {x: -15.694353, y: 9.576326, z: -1.1532173}
+  - point: {x: -2.9022038, y: 11.378288, z: -6.5384607}
+  - point: {x: -16.410738, y: 5.0494194, z: 2.254387}
   - point: {x: -16.868904, y: 0.636096, z: -0.1182518}
   - point: {x: -16.868904, y: 0.636096, z: -0.1182518}
-  - point: {x: -17.093813, y: -1.0758272, z: 0.07992895}
+  - point: {x: -19.252378, y: -22.322926, z: -12.461209}
 --- !u!114 &1932001001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,14 +330,98 @@ MonoBehaviour:
   m_GameObject: {fileID: 1932000996}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d738c32dbb8ef64ea1090467b70f02d, type: 3}
+  m_Script: {fileID: 11500000, guid: 33e42ea119926264283174899e1d29dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - point: {x: 18.866169, y: 3.1238117, z: -3.0478916}
-  - point: {x: 12.242007, y: 10.369186, z: -3.16148}
-  - point: {x: -6.853005, y: 1.6350079, z: -0.7238827}
-  - point: {x: -7.6660666, y: 15.629688, z: -2.9662151}
+  - point: {x: 0, y: 0, z: 15}
+  - point: {x: 5, y: 0, z: 15}
+  - point: {x: 10, y: 0, z: 15}
+  - point: {x: 15, y: 0, z: 15}
+  - point: {x: 15, y: 0, z: 15}
+  - point: {x: 20, y: 0, z: 15}
+  - point: {x: 25, y: 0, z: 15}
+  - point: {x: 30, y: 0, z: 15}
+--- !u!114 &1932001002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932000996}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e42ea119926264283174899e1d29dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points:
+  - point: {x: 0, y: 0, z: 10}
+  - point: {x: 5, y: 0, z: 10}
+  - point: {x: 13.23579, y: 1.3170404, z: 8.911852}
+  - point: {x: 15, y: 0, z: 10}
+  - point: {x: 15, y: 0, z: 10}
+  - point: {x: 18.59188, y: -2.6814566, z: 12.215439}
+  - point: {x: 25, y: 0, z: 10}
+  - point: {x: 30, y: 0, z: 10}
+--- !u!114 &1932001003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932000996}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e42ea119926264283174899e1d29dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points:
+  - point: {x: 0, y: 0, z: 5}
+  - point: {x: 5, y: 0, z: 5}
+  - point: {x: 10.829597, y: 1.0322819, z: 5.378699}
+  - point: {x: 15, y: 0, z: 5}
+  - point: {x: 15, y: 0, z: 5}
+  - point: {x: 19.834776, y: -1.1967314, z: 4.5609717}
+  - point: {x: 25, y: 0, z: 5}
+  - point: {x: 30, y: 0, z: 5}
+--- !u!114 &1932001004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932000996}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e42ea119926264283174899e1d29dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points:
+  - point: {x: 0, y: 0, z: 0}
+  - point: {x: 5, y: 0, z: 0}
+  - point: {x: 9.802694, y: 0.13578701, z: 0.053375244}
+  - point: {x: 15, y: 0, z: 0}
+  - point: {x: 15, y: 0, z: 0}
+  - point: {x: 19.998026, y: -0.13058053, z: -0.05132868}
+  - point: {x: 25, y: 0, z: 0}
+  - point: {x: 30, y: 0, z: 0}
+--- !u!114 &1932001005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932000996}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a18b7937a4e206468f6c33246c46241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curves:
+  - {fileID: 1932001004}
+  - {fileID: 1932001003}
+  - {fileID: 1932001002}
+  - {fileID: 1932001001}
 --- !u!1 &1991012853
 GameObject:
   m_ObjectHideFlags: 0
