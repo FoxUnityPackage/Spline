@@ -36,8 +36,8 @@ public class HermitianSpline : Spline
     
     public override Vector3[] MakeSplinePoints(int divisionBySpline)
     {
-        Vector3[] pointsRst = new Vector3[divisionBySpline * (points.Count - 1)];
-        float step = 1f / (divisionBySpline - 1);
+        Vector3[] pointsRst = new Vector3[divisionBySpline * (points.Count - 1) + 1];
+        float step = 1f / divisionBySpline;
         
         for (int i = 0; i < points.Count - 1; i++)
         {
@@ -48,6 +48,9 @@ public class HermitianSpline : Spline
                 t += step;
             }
         }
+        
+        // Inlude the last point
+        pointsRst[pointsRst.Length - 1] = GetInterpolation(points.Count - 2, 1f);
 
         return pointsRst;
     }

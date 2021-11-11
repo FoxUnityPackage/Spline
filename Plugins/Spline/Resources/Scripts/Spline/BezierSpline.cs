@@ -38,9 +38,9 @@ public class BezierSpline : Spline
     public override Vector3[] MakeSplinePoints(int divisionBySpline)
     {
         int totalPoint = (points.Count - points.Count % 4) / 4;
-        Vector3[] pointsRst = new Vector3[divisionBySpline * totalPoint];
-        float step = 1f / (divisionBySpline - 1);
-        
+        Vector3[] pointsRst = new Vector3[divisionBySpline * totalPoint + 1];
+        float step = 1f / divisionBySpline;
+
         for (int i = 0; i < totalPoint; i++)
         {
             float t = 0f;
@@ -50,6 +50,9 @@ public class BezierSpline : Spline
                 t += step;
             }
         }
+        
+        // Inlude the last point
+        pointsRst[pointsRst.Length - 1] = GetInterpolation((totalPoint - 1) * 4, 1f);
 
         return pointsRst;
     }

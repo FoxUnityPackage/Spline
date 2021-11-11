@@ -123,6 +123,170 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!43 &165650876
+Mesh:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GeneratedMesh
+  serializedVersion: 10
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 18
+    topology: 0
+    baseVertex: 0
+    firstVertex: 0
+    vertexCount: 12
+    localAABB:
+      m_Center: {x: 2.5, y: 2.5, z: 0}
+      m_Extent: {x: 2.507071, y: 2.507071, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_BonesAABB: []
+  m_VariableBoneCountWeights:
+    m_Data: 
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexFormat: 0
+  m_IndexBuffer: 000001000200020001000300040005000600060005000700080009000a000a0009000b00
+  m_VertexData:
+    serializedVersion: 3
+    m_VertexCount: 12
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 240
+    _typelessdata: 6ab4e73b6ab4e7bb0000000000000000000000006ab4e7bb6ab4e73b000000000000803f000000008546c33f1d77c13f00000000000000000000803f1d77c13f8546c33f000000000000803f0000803f8546c33f1d77c13f0000000000000000000000001d77c13f8546c33f000000000000803f0000000072445f40be5c5e4000000000000000000000803fbe5c5e4072445f40000000000000803f0000803fed39a04013c69f4000000000000000000000000013c69f40ed39a040000000000000803f00000000ed39a04013c69f4000000000000000000000803f13c69f40ed39a040000000000000803f0000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 2.5, y: 2.5, z: 0}
+    m_Extent: {x: 2.507071, y: 2.507071, z: 0}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
+  m_MeshOptimizationFlags: 1
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!1 &1219741073
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +380,119 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1288747531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1288747535}
+  - component: {fileID: 1288747534}
+  - component: {fileID: 1288747533}
+  - component: {fileID: 1288747532}
+  - component: {fileID: 1288747536}
+  m_Layer: 0
+  m_Name: PathCreator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!33 &1288747532
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288747531}
+  m_Mesh: {fileID: 165650876}
+--- !u!114 &1288747533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288747531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59a268703c443494fbf9f67b955d0403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points:
+  - point: {x: -1, y: -1, z: 0}
+  - point: {x: 0, y: 0, z: 0}
+  - point: {x: 5, y: 5, z: 0}
+  - point: {x: 6, y: 6, z: 0}
+--- !u!114 &1288747534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288747531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7f84f5b62e3a2a45891d49f34000b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spline: {fileID: 1288747533}
+--- !u!4 &1288747535
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288747531}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1288747536
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288747531}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1932000996
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,6 +510,7 @@ GameObject:
   - component: {fileID: 1932001003}
   - component: {fileID: 1932001002}
   - component: {fileID: 1932001001}
+  - component: {fileID: 1932001006}
   m_Layer: 0
   m_Name: Spline
   m_TagString: Untagged
@@ -267,16 +545,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - point: {x: 3.080526, y: 2.6119764, z: 0.61498547}
-    derivative: {x: 2.9450862, y: -4.353223, z: 0.7986889}
+  - point: {x: -0.43293858, y: -1.0340302, z: -0.6276083}
+    derivative: {x: 2.9450872, y: -4.353223, z: 0.7986889}
   - point: {x: 12.810294, y: -0.27489024, z: 2.9000049}
-    derivative: {x: -1.5434418, y: -3.4825916, z: -0.24124908}
+    derivative: {x: -0.24282265, y: 2.7471192, z: 0.648993}
   - point: {x: 7.615446, y: 1.9933677, z: 1.6576405}
-    derivative: {x: 4.5128613, y: -0.57276845, z: 1.0362673}
+    derivative: {x: -2.4861355, y: -1.8680751, z: 1.2229843}
   - point: {x: 4.6316705, y: 3.8721373, z: 0.92634296}
-    derivative: {x: 3.5753112, y: 3.0472944, z: 0.7132759}
-  - point: {x: -3.7166483, y: 2.6348524, z: -0.91998196}
-    derivative: {x: 3.5152016, y: 4.1012545, z: 0.667284}
+    derivative: {x: -1.6632481, y: 2.2192366, z: 0.42731476}
+  - point: {x: -2.7340655, y: 2.9585485, z: -0.6995497}
+    derivative: {x: -2.5774412, y: -2.4221184, z: 1.2725487}
 --- !u!114 &1932000999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - point: {x: 13.255383, y: 16.208258, z: -7.0314484}
-  - point: {x: 5.143386, y: 15.08226, z: -7.894555}
+  - point: {x: 5.813401, y: 19.732681, z: -7.593815}
   - point: {x: 2.0857835, y: 10.853373, z: 1.461071}
   - point: {x: -0.6449065, y: 11.140739, z: -2.9182987}
   - point: {x: -0.6449065, y: 11.140739, z: -2.9182987}
@@ -334,14 +612,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - point: {x: 0, y: 0, z: 15}
+  - point: {x: -0.09183025, y: -0.005264282, z: 14.94472}
   - point: {x: 5, y: 0, z: 15}
   - point: {x: 10, y: 0, z: 15}
   - point: {x: 15, y: 0, z: 15}
   - point: {x: 15, y: 0, z: 15}
   - point: {x: 20, y: 0, z: 15}
   - point: {x: 25, y: 0, z: 15}
-  - point: {x: 30, y: 0, z: 15}
+  - point: {x: 30.739885, y: -0.041618347, z: 14.680461}
 --- !u!114 &1932001002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,6 +700,27 @@ MonoBehaviour:
   - {fileID: 1932001003}
   - {fileID: 1932001002}
   - {fileID: 1932001001}
+--- !u!114 &1932001006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932000996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d738c32dbb8ef64ea1090467b70f02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points:
+  - point: {x: -0.87735367, y: -3.9200416, z: -1.5835991}
+  - point: {x: -3.8617666, y: 1.4487014, z: -0.50718117}
+  - point: {x: 12.030596, y: 2.5655599, z: -0.28008652}
+  - point: {x: 15.314427, y: -2.867692, z: 0.22433662}
+  - point: {x: 22.407097, y: -0.91115665, z: -0.095552444}
+  - point: {x: 22.066868, y: -0.61148167, z: 0.7061348}
+  - point: {x: 30.263895, y: 7.4088764, z: 0.15826988}
+  - point: {x: 21.044394, y: 10.0303955, z: 1.9081573}
 --- !u!1 &1991012853
 GameObject:
   m_ObjectHideFlags: 0
