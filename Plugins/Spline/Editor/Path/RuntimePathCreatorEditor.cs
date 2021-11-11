@@ -34,6 +34,7 @@ public class RuntimePathCreatorEditor : Editor
             GenerateMesh();
 
         division = EditorGUILayout.IntField(division);
+        scale = EditorGUILayout.FloatField(scale);
 
         GUILayout.EndHorizontal();
     }
@@ -44,19 +45,12 @@ public class RuntimePathCreatorEditor : Editor
         mesh.name = "GeneratedMesh";
         
         Vector3[] points = self.spline.MakeSplinePoints(division);
-
-        Debug.Log(points.Length + " " + division);
         
         mesh.SetVertices(GenerateVertices(points));
         mesh.SetIndices(GenerateIndices(points), MeshTopology.Triangles, 0);
         mesh.SetUVs(0, GenerateUVs(points));
 
         meshFilter.mesh = mesh;
-
-        foreach (var VARIABLE in GenerateVertices(points))
-        {
-            Debug.Log(VARIABLE);
-        }
     }
 
     Vector3[] GenerateVertices(Vector3[] points)
@@ -88,8 +82,8 @@ public class RuntimePathCreatorEditor : Editor
 
         // Use the last direction
         tangeante = Vector3.Normalize(Vector3.Cross(biTangeante, points[ points.Length - 1] - points[ points.Length - 2])) * scale;
-        vertices[vertices.Length - 4] = points[ points.Length - 1] + tangeante;
-        vertices[vertices.Length - 3] = points[ points.Length - 1] - tangeante;
+        vertices[vertices.Length - 4] = points[index] + tangeante;
+        vertices[vertices.Length - 3] = points[index] - tangeante;
         // Second pass for UVs
         vertices[vertices.Length - 2] = points[ points.Length - 1] + tangeante;
         vertices[vertices.Length - 1] = points[ points.Length - 1] - tangeante;
