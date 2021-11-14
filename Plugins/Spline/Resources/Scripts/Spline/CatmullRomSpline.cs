@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
+[Serializable]
 public class CatmullRomSpline : Spline
 {
     private static Matrix4x4 constantMatrix =
@@ -11,9 +14,10 @@ public class CatmullRomSpline : Spline
             new Vector4(0f, 1f, 0f, 0f)
         );
 
-    [System.Serializable]
+    [Serializable]
     public struct Point
     {
+        [SerializeField]
         public Vector3 point;
     }
     
@@ -53,5 +57,23 @@ public class CatmullRomSpline : Spline
         pointsRst[pointsRst.Length - 1] = GetInterpolation(totalPoint + 2, 1);
 
         return pointsRst;
+    }
+    
+    public override void Save(string dst)
+    {
+        using (StreamWriter writer = new StreamWriter(dst))
+        {
+            writer.WriteLine(JsonHelper.ToJson(points.ToArray()));
+            writer.Close();
+        }
+    }
+    
+    public override void Load(string src)
+    {
+        using (StreamReader reader = new StreamReader(src))
+        {
+            points = new List<Point>(JsonHelper.FromJson<Point>(reader.ReadToEnd()));
+            reader.Close();
+        }
     }
 }

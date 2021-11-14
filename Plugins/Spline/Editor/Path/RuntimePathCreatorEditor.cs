@@ -9,9 +9,9 @@ public class RuntimePathCreatorEditor : Editor
     // component is selected.
     private RuntimePathCreator self = null;
     private MeshFilter meshFilter;
-    Vector3 biTangeante = Vector3.back;
-    private float scale = 0.01f;
-    private int division = 3;
+    [SerializeField] private Vector3 biTangeante = Vector3.back;
+    private float scale = 0.1f;
+    private int division = 10;
 
     private void OnEnable()
     {
