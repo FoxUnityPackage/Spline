@@ -10,4 +10,12 @@ class SplineEditorUtility
         r.y += padding / 2f;
         EditorGUI.DrawRect(r, color);
     }
+    
+    [System.Serializable]
+    public enum ESpace2D
+    {
+        XY, 
+        XZ,
+        YZ
+    };
 }

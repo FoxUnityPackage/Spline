@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -14,7 +13,10 @@ public class CatmullRomSplineEditor : Editor
     private int splineDivision = 20;
     private bool isExtremityAdd = false;
     private CatmullRomSpline self = null;
-    
+
+
+    private SplineEditorUtility.ESpace2D m_space2D = SplineEditorUtility.ESpace2D.XY;
+    private float m_base = 0f;
     
     private void OnEnable()
     {
@@ -38,7 +40,7 @@ public class CatmullRomSplineEditor : Editor
             self.points[i] = new CatmullRomSpline.Point{point = newPos};
         }
     }
-
+    
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -73,5 +75,76 @@ public class CatmullRomSplineEditor : Editor
                 EditorUtility.SetDirty(target);
             }
         }
+        
+        SplineEditorUtility.DrawUILine(Color.gray, 1, 5);
+        CloseShapeSetting();
+        
+        SplineEditorUtility.DrawUILine(Color.gray, 1, 5);
+        Space2DSetting();
+    }
+
+    void CloseShapeSetting()
+    {
+        if (self.points.Count > 3)
+        {
+            EditorGUI.BeginChangeCheck();
+            if (GUILayout.Button("Close shape"))
+            {
+                self.points[self.points.Count - 1] = self.points[self.points.Count - 2] = self.points[0] = self.points[1];
+                EditorUtility.SetDirty(target);
+            }
+        }
+    }
+    
+    void Space2DSetting()
+    {
+                float itemWidth =  EditorGUIUtility.currentViewWidth / 3f - 10f;
+        GUILayout.BeginHorizontal();
+        {
+            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
+            {
+                GUILayout.Label("");
+                if (GUILayout.Button("Apply 2D"))
+                {
+                    switch (m_space2D)
+                    {
+                        case SplineEditorUtility.ESpace2D.XY:
+                            for (int i = 0; i < self.points.Count; i++)
+                            {
+                                self.points[i] = new CatmullRomSpline.Point{point = new Vector3{x = self.points[i].point.x, y = self.points[i].point.y, z = m_base}};
+                            }
+                            break;
+                        case SplineEditorUtility.ESpace2D.XZ:
+                            for (int i = 0; i < self.points.Count; i++)
+                            {
+                                self.points[i] = new CatmullRomSpline.Point{point = new Vector3{x = self.points[i].point.x, y = m_base, z = self.points[i].point.z}};
+                            }
+                            break;
+                        case SplineEditorUtility.ESpace2D.YZ:
+                            for (int i = 0; i < self.points.Count; i++)
+                            {
+                                self.points[i] = new CatmullRomSpline.Point{point = new Vector3{x = m_base, y = self.points[i].point.y, z = self.points[i].point.z}};
+                            }
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    EditorUtility.SetDirty(target);
+                }
+            } GUILayout.EndVertical();
+
+            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
+            {
+                GUILayout.Label("Space");
+                m_space2D = (SplineEditorUtility.ESpace2D) EditorGUILayout.EnumPopup(m_space2D);
+            } GUILayout.EndVertical();
+
+            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
+            {
+                GUILayout.Label("Base");
+                m_base = EditorGUILayout.FloatField(m_base);
+            } GUILayout.EndVertical();
+            
+        } GUILayout.EndHorizontal();
     }
 }
