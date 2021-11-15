@@ -6,8 +6,6 @@ using Directory = UnityEngine.Windows.Directory;
 public class SplineEditor<T> : Editor
     where T : Spline
 {
-    private string m_path;
-
     protected T self = null;
     
     private void OnEnable()
@@ -19,42 +17,42 @@ public class SplineEditor<T> : Editor
     {
         GUILayout.BeginVertical();
         {
-            GUILayout.Label("Path : " + ((m_path != null && m_path.Length == 0) ? "None" : m_path));
+            GUILayout.Label("Path : " + ((self.m_path != null && self.m_path.Length == 0) ? "None" : self.m_path));
             
             GUILayout.BeginHorizontal();
             {
                 if (GUILayout.Button("Import"))
                 {
-                    m_path = EditorUtility.OpenFilePanel("Import/Export folder", "", "dat");
-                    self.Load(m_path);
+                    self.m_path = EditorUtility.OpenFilePanel("Import/Export folder", "", "json");
+                    self.Load(self.m_path);
                     EditorUtility.SetDirty(target);
                 }
                 
                 if (GUILayout.Button("Save as"))
                 {
-                    m_path = EditorUtility.SaveFilePanelInProject("Save as", "Spline", "dat", "");
+                    self.m_path = EditorUtility.SaveFilePanelInProject("Save as", "Spline", "json", "");
                     
                     // Convert absolute to relative path
-                    if (m_path.StartsWith(Application.dataPath))
+                    if (self.m_path.StartsWith(Application.dataPath))
                     {
-                        m_path = "Assets" + m_path.Substring(Application.dataPath.Length);
+                        self.m_path = "Assets" + self.m_path.Substring(Application.dataPath.Length);
                     }
                 
                     //Create Directory if it does not exist
-                    if (!Directory.Exists(Path.GetDirectoryName(m_path)))
+                    if (!Directory.Exists(Path.GetDirectoryName(self.m_path)))
                     {
-                        Directory.CreateDirectory(Path.GetDirectoryName(m_path));
+                        Directory.CreateDirectory(Path.GetDirectoryName(self.m_path));
                     }
                     
-                    self.Save(m_path);
+                    self.Save(self.m_path);
                     AssetDatabase.Refresh();
                 }
                 
-                if (m_path != null && m_path.Length != 0)
+                if (self.m_path != null && self.m_path.Length != 0)
                 {
                     if (GUILayout.Button("Save"))
                     {
-                        self.Save(m_path);
+                        self.Save(self.m_path);
                         AssetDatabase.Refresh();
                     }
                 }

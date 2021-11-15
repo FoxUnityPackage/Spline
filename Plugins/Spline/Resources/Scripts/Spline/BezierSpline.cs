@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 
 public class BezierSpline : Spline
@@ -20,9 +19,14 @@ public class BezierSpline : Spline
         public Vector3 point;
     }
     
+#if UNITY_EDITOR
+    [HideInInspector] public bool isExtremityAdd = false;
+    [HideInInspector] public bool isContinues = true;
+#endif
+    
     public List<Point> points = new List<Point>();
     
-    public override Vector3 GetInterpolation(int pointIndex, float t)
+    public override Vector3 GetLocalInterpolation(int pointIndex, float t)
     {
         t = Mathf.Clamp01(t);
 
@@ -47,13 +51,13 @@ public class BezierSpline : Spline
             float t = 0f;
             for (int j = 0; j < divisionBySpline; j++)
             {
-                pointsRst[i * divisionBySpline + j] = GetInterpolation(i * 4, t);
+                pointsRst[i * divisionBySpline + j] = GetLocalInterpolation(i * 4, t);
                 t += step;
             }
         }
         
-        // Inlude the last point
-        pointsRst[pointsRst.Length - 1] = GetInterpolation((totalPoint - 1) * 4, 1f);
+        // Include the last point
+        pointsRst[pointsRst.Length - 1] = GetLocalInterpolation((totalPoint - 1) * 4, 1f);
 
         return pointsRst;
     }
@@ -62,7 +66,7 @@ public class BezierSpline : Spline
     {
         using (StreamWriter writer = new StreamWriter(dst))
         {
-            writer.WriteLine(JsonHelper.ToJson(points.ToArray()));
+            writer.WriteLine(JsonHelper.ToJson(points.ToArray(), true));
             writer.Close();
         }
     }
@@ -74,5 +78,20 @@ public class BezierSpline : Spline
             points = new List<Point>(JsonHelper.FromJson<Point>(reader.ReadToEnd()));
             reader.Close();
         }
+    }
+    
+    public override int GetMaxPassagePointIndex()
+    {
+        return points.Count;
+    }
+    
+    public override int GetMinPassagePointIndex()
+    {
+        return 0;
+    }
+    
+    public override int GetPassagePointIndexStep()
+    {
+        return 4;
     }
 }

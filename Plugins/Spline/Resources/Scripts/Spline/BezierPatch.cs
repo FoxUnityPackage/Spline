@@ -15,10 +15,10 @@ public class BezierPatch : Patch
 
         for (int i = pointIndexU; i < 4; i++)
         {
-            splineRst.points.Add(new BezierSpline.Point {point = curves[i].GetInterpolation(pointIndexV, s)});
+            splineRst.points.Add(new BezierSpline.Point {point = curves[i].GetLocalInterpolation(pointIndexV, s)});
         }
 
-        return splineRst.GetInterpolation(0, t);
+        return splineRst.GetLocalInterpolation(0, t);
     }
 
     public override Vector3[][] MakeSplinePoints(int curveDivision)

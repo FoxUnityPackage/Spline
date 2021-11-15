@@ -21,9 +21,13 @@ public class HermitianSpline : Spline
         public Vector3 derivative;
     }
     
+#if UNITY_EDITOR
+    [HideInInspector] public float handleSize = 0.25f;
+#endif
+    
     public List<Point> points = new List<Point>();
     
-    public override Vector3 GetInterpolation(int pointIndex, float t)
+    public override Vector3 GetLocalInterpolation(int pointIndex, float t)
     {
         t = Mathf.Clamp01(t);
         
@@ -47,13 +51,13 @@ public class HermitianSpline : Spline
             float t = 0f;
             for (int j = 0; j < divisionBySpline; j++)
             {
-                pointsRst[i * divisionBySpline + j] = GetInterpolation(i, t);
+                pointsRst[i * divisionBySpline + j] = GetLocalInterpolation(i, t);
                 t += step;
             }
         }
         
         // Inlude the last point
-        pointsRst[pointsRst.Length - 1] = GetInterpolation(points.Count - 2, 1f);
+        pointsRst[pointsRst.Length - 1] = GetLocalInterpolation(points.Count - 2, 1f);
 
         return pointsRst;
     }
@@ -62,7 +66,7 @@ public class HermitianSpline : Spline
     {
         using (StreamWriter writer = new StreamWriter(dst))
         {
-            writer.WriteLine(JsonHelper.ToJson(points.ToArray()));
+            writer.WriteLine(JsonHelper.ToJson(points.ToArray(), true));
             writer.Close();
         }
     }
@@ -74,5 +78,20 @@ public class HermitianSpline : Spline
             points = new List<Point>(JsonHelper.FromJson<Point>(reader.ReadToEnd()));
             reader.Close();
         }
+    }
+    
+    public override int GetMaxPassagePointIndex()
+    {
+        return points.Count - 1;
+    }
+    
+    public override int GetMinPassagePointIndex()
+    {
+        return 0;
+    }
+    
+    public override int GetPassagePointIndexStep()
+    {
+        return 1;
     }
 }

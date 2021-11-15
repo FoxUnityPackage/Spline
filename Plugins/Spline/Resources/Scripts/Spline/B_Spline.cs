@@ -20,7 +20,7 @@ public class B_Spline : Spline
     
     public List<Point> points = new List<Point>();
     
-    public override Vector3 GetInterpolation(int pointIndex, float t)
+    public override Vector3 GetLocalInterpolation(int pointIndex, float t)
     {
         t = Mathf.Clamp01(t);
         
@@ -33,7 +33,7 @@ public class B_Spline : Spline
 
         return pointsMatrix * constantMatrix * tVec;
     }
-    
+
     public override Vector3[] MakeSplinePoints(int divisionBySpline)
     {
         int totalPoint = points.Count - 3;   
@@ -45,13 +45,13 @@ public class B_Spline : Spline
             float t = 0f;
             for (int j = 0; j < divisionBySpline; j++)
             {
-                pointsRst[i * divisionBySpline + j] = GetInterpolation(i + 3, t);
+                pointsRst[i * divisionBySpline + j] = GetLocalInterpolation(i + 3, t);
                 t += step;
             }
         }
         
         // Inlude the last point
-        pointsRst[pointsRst.Length - 1] = GetInterpolation(totalPoint + 2, 1f);
+        pointsRst[pointsRst.Length - 1] = GetLocalInterpolation(totalPoint + 2, 1f);
 
         return pointsRst;
     }
@@ -60,7 +60,7 @@ public class B_Spline : Spline
     {
         using (StreamWriter writer = new StreamWriter(dst))
         {
-            writer.WriteLine(JsonHelper.ToJson(points.ToArray()));
+            writer.WriteLine(JsonHelper.ToJson(points.ToArray(), true));
             writer.Close();
         }
     }
@@ -72,5 +72,20 @@ public class B_Spline : Spline
             points = new List<Point>(JsonHelper.FromJson<Point>(reader.ReadToEnd()));
             reader.Close();
         }
+    }
+
+    public override int GetMaxPassagePointIndex()
+    {
+        return points.Count;
+    }
+    
+    public override int GetMinPassagePointIndex()
+    {
+        return 3;
+    }
+    
+    public override int GetPassagePointIndexStep()
+    {
+        return 1;
     }
 }

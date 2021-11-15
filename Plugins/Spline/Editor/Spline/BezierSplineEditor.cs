@@ -8,32 +8,31 @@ using UnityEngine;
 [CustomEditor(typeof(BezierSpline))]
 public class BezierSplineEditor : SplineEditor<BezierSpline>
 {
-    // Custom in-scene UI for when Spline script
-    // component is selected.
-    private float pointSize = 0.1f;
-    private int splineDivision = 20;
-    private bool isExtremityAdd = false;
-    private bool isContinues = true;
-    
-    private SplineEditorUtility.ESpace2D m_space2D = SplineEditorUtility.ESpace2D.XY;
-    private float m_base = 0f;
-
     protected virtual void OnSceneGUI()
     {
         if (!self.enabled)
             return;
         
         if (self.points.Count > 3)
-            Handles.DrawAAPolyLine(self.MakeSplinePoints(splineDivision));
+            Handles.DrawAAPolyLine(self.MakeSplinePoints(self.splineDivision));
         
         for (int i = 0; i < self.points.Count; i++)
         {
-            bool isVelocityHandle = isContinues && i > 4 && i % 4 - 1 == 0;
-            bool isDirectionHandle = isContinues && i + 3 < self.points.Count && i % 4 - 2 == 0;
-            
-            Handles.color = isVelocityHandle ?  Color.cyan : isDirectionHandle ? Color.blue : Color.green;
+            bool isVelocityHandle = false;
+            if (self.isContinues)
+            {
+                isVelocityHandle = i > 4 && i % 4 - 1 == 0;
+                bool isDirectionHandle = i + 3 < self.points.Count && i % 4 - 2 == 0;
+
+                Handles.color = isVelocityHandle ? Color.cyan : isDirectionHandle ? Color.blue : Color.green;
+            }
+            else
+            {
+                Handles.color = Color.green;
+            }
+
             Vector3 newPos = Handles.FreeMoveHandle( self.points[i].point, Quaternion.identity,
-                HandleUtility.GetHandleSize( self.points[i].point) * pointSize, Vector3.one, Handles.SphereHandleCap);
+                HandleUtility.GetHandleSize( self.points[i].point) * self.pointSize, Vector3.one, Handles.SphereHandleCap);
 
             if (isVelocityHandle)
             {
@@ -52,24 +51,54 @@ public class BezierSplineEditor : SplineEditor<BezierSpline>
     {
         base.OnInspectorGUI();
 
+        GUILayout.Label("Portion control");
+        EditorGUILayout.BeginHorizontal();
+        {
+            if (GUILayout.Button("Add"))
+            {
+                BezierSpline.Point pt1 = self.points[self.points.Count - 1];
+                BezierSpline.Point pt2 = self.points[self.points.Count - 2];
+                BezierSpline.Point pt3 = self.points[self.points.Count - 3];
+                BezierSpline.Point pt4 = self.points[self.points.Count - 4];
+                Vector3 dir = pt1.point - pt4.point;
+                
+                self.points.Add(pt1);
+                self.points.Add(new BezierSpline.Point{ point = pt3.point + dir});
+                self.points.Add(new BezierSpline.Point{ point = pt2.point + dir});
+                self.points.Add(new BezierSpline.Point{ point = pt1.point + dir});
+                
+                EditorUtility.SetDirty(target);
+            }
+            
+            if (GUILayout.Button("Remove last"))
+            {
+                self.points.RemoveAt(self.points.Count - 1);
+                self.points.RemoveAt(self.points.Count - 1);
+                self.points.RemoveAt(self.points.Count - 1);
+                self.points.RemoveAt(self.points.Count - 1);
+                EditorUtility.SetDirty(target);
+            }
+            
+        } EditorGUILayout.EndHorizontal();
+
         SplineEditorUtility.DrawUILine(Color.gray);
         GUILayout.Label("Editor settings :");
-        pointSize = EditorGUILayout.FloatField("Point size", pointSize);
+        self.pointSize = EditorGUILayout.FloatField("Point size", self.pointSize);
         EditorGUI.BeginChangeCheck();
-        splineDivision = EditorGUILayout.IntField("Curve precision", splineDivision);
+        self.splineDivision = EditorGUILayout.IntField("Curve precision", self.splineDivision);
         if (EditorGUI.EndChangeCheck())
         {
-            splineDivision = Mathf.Clamp(splineDivision, 3, 1000);
+            self.splineDivision = Mathf.Clamp(self.splineDivision, 3, 1000);
             EditorUtility.SetDirty(target);
         }
 
         if (self.points.Count > 3)
         {
             EditorGUI.BeginChangeCheck();
-            isExtremityAdd = EditorGUILayout.Toggle("Include extremity", isExtremityAdd);
+            self.isExtremityAdd = EditorGUILayout.Toggle("Include extremity", self.isExtremityAdd);
             if (EditorGUI.EndChangeCheck())
             {
-                if (isExtremityAdd)
+                if (self.isExtremityAdd)
                 {
                     self.points.Insert(0, self.points.First());
                     self.points.Add(self.points.Last());
@@ -98,7 +127,7 @@ public class BezierSplineEditor : SplineEditor<BezierSpline>
                 }
                 
                 EditorGUI.BeginChangeCheck();
-                isContinues = EditorGUILayout.Toggle("Is continuity smooth", isContinues);
+                self.isContinues = EditorGUILayout.Toggle("Is continuity smooth", self.isContinues);
             }
         }
         
@@ -135,24 +164,24 @@ public class BezierSplineEditor : SplineEditor<BezierSpline>
                 GUILayout.Label("");
                 if (GUILayout.Button("Apply 2D"))
                 {
-                    switch (m_space2D)
+                    switch (self.m_space2D)
                     {
-                        case SplineEditorUtility.ESpace2D.XY:
+                        case Spline.ESpace2D.XY:
                             for (int i = 0; i < self.points.Count; i++)
                             {
-                                self.points[i] = new BezierSpline.Point{point = new Vector3{x = self.points[i].point.x, y = self.points[i].point.y, z = m_base}};
+                                self.points[i] = new BezierSpline.Point{point = new Vector3{x = self.points[i].point.x, y = self.points[i].point.y, z = self.m_base}};
                             }
                             break;
-                        case SplineEditorUtility.ESpace2D.XZ:
+                        case Spline.ESpace2D.XZ:
                             for (int i = 0; i < self.points.Count; i++)
                             {
-                                self.points[i] = new BezierSpline.Point{point = new Vector3{x = self.points[i].point.x, y = m_base, z = self.points[i].point.z}};
+                                self.points[i] = new BezierSpline.Point{point = new Vector3{x = self.points[i].point.x, y = self.m_base, z = self.points[i].point.z}};
                             }
                             break;
-                        case SplineEditorUtility.ESpace2D.YZ:
+                        case Spline.ESpace2D.YZ:
                             for (int i = 0; i < self.points.Count; i++)
                             {
-                                self.points[i] = new BezierSpline.Point{point = new Vector3{x = m_base, y = self.points[i].point.y, z = self.points[i].point.z}};
+                                self.points[i] = new BezierSpline.Point{point = new Vector3{x = self.m_base, y = self.points[i].point.y, z = self.points[i].point.z}};
                             }
                             break;
                         default:
@@ -165,13 +194,13 @@ public class BezierSplineEditor : SplineEditor<BezierSpline>
             GUILayout.BeginVertical(GUILayout.Width(itemWidth));
             {
                 GUILayout.Label("Space");
-                m_space2D = (SplineEditorUtility.ESpace2D) EditorGUILayout.EnumPopup(m_space2D);
+                self.m_space2D = (Spline.ESpace2D) EditorGUILayout.EnumPopup(self.m_space2D);
             } GUILayout.EndVertical();
 
             GUILayout.BeginVertical(GUILayout.Width(itemWidth));
             {
                 GUILayout.Label("Base");
-                m_base = EditorGUILayout.FloatField(m_base);
+                self.m_base = EditorGUILayout.FloatField(self.m_base);
             } GUILayout.EndVertical();
             
         } GUILayout.EndHorizontal();

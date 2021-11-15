@@ -6,29 +6,19 @@ using UnityEngine;
 [CustomEditor(typeof(B_Spline))]
 public class B_SplineEditor : SplineEditor<B_Spline>
 {
-    // Custom in-scene UI for when Spline script
-    // component is selected.
-    private float pointSize = 0.1f;
-    private int splineDivision = 20;
-    private B_Spline self = null;
-    
-    private SplineEditorUtility.ESpace2D m_space2D = SplineEditorUtility.ESpace2D.XY;
-    private float m_base = 0f;
-    
-
     protected virtual void OnSceneGUI()
     {
         if (!self.enabled)
             return;
         
         if (self.points.Count > 3)
-            Handles.DrawAAPolyLine(self.MakeSplinePoints(splineDivision));
+            Handles.DrawAAPolyLine(self.MakeSplinePoints(self.splineDivision));
         
         for (int i = 0; i < self.points.Count; i++)
         {
             Handles.color = Color.green;
             Vector3 newPos = Handles.FreeMoveHandle( self.points[i].point, Quaternion.identity,
-                HandleUtility.GetHandleSize( self.points[i].point) * pointSize, Vector3.one, Handles.SphereHandleCap);
+                HandleUtility.GetHandleSize( self.points[i].point) * self.pointSize, Vector3.one, Handles.SphereHandleCap);
             
             self.points[i] = new B_Spline.Point{point = newPos};
         }
@@ -40,36 +30,20 @@ public class B_SplineEditor : SplineEditor<B_Spline>
 
         SplineEditorUtility.DrawUILine(Color.gray);
         GUILayout.Label("Editor settings :");
-        pointSize = EditorGUILayout.FloatField("Point size", pointSize);
+        self.pointSize = EditorGUILayout.FloatField("Point size", self.pointSize);
         EditorGUI.BeginChangeCheck();
-        splineDivision = EditorGUILayout.IntField("Curve precision", splineDivision);
+        self.splineDivision = EditorGUILayout.IntField("Curve precision", self.splineDivision);
         if (EditorGUI.EndChangeCheck())
         {
-            splineDivision = Mathf.Clamp(splineDivision, 3, 1000);
+            self.splineDivision = Mathf.Clamp(self.splineDivision, 3, 1000);
             EditorUtility.SetDirty(target);
         }
-        
-        SplineEditorUtility.DrawUILine(Color.gray, 1, 5);
-        CloseShapeSetting();
-        
+
         SplineEditorUtility.DrawUILine(Color.gray, 1, 5);
         Space2DSetting();
         
         SplineEditorUtility.DrawUILine(Color.gray, 1, 5);
         ImportExportSetting();
-    }
-    
-    void CloseShapeSetting()
-    {
-        if (self.points.Count > 3)
-        {
-            EditorGUI.BeginChangeCheck();
-            if (GUILayout.Button("Close shape"))
-            {
-                self.points[self.points.Count - 1] = self.points[self.points.Count - 2] = self.points[0] = self.points[1];
-                EditorUtility.SetDirty(target);
-            }
-        }
     }
 
     void Space2DSetting()
@@ -82,24 +56,24 @@ public class B_SplineEditor : SplineEditor<B_Spline>
                 GUILayout.Label("");
                 if (GUILayout.Button("Apply 2D"))
                 {
-                    switch (m_space2D)
+                    switch (self.m_space2D)
                     {
-                        case SplineEditorUtility.ESpace2D.XY:
+                        case Spline.ESpace2D.XY:
                             for (int i = 0; i < self.points.Count; i++)
                             {
-                                self.points[i] = new B_Spline.Point{point = new Vector3{x = self.points[i].point.x, y = self.points[i].point.y, z = m_base}};
+                                self.points[i] = new B_Spline.Point{point = new Vector3{x = self.points[i].point.x, y = self.points[i].point.y, z = self.m_base}};
                             }
                             break;
-                        case SplineEditorUtility.ESpace2D.XZ:
+                        case Spline.ESpace2D.XZ:
                             for (int i = 0; i < self.points.Count; i++)
                             {
-                                self.points[i] = new B_Spline.Point{point = new Vector3{x = self.points[i].point.x, y = m_base, z = self.points[i].point.z}};
+                                self.points[i] = new B_Spline.Point{point = new Vector3{x = self.points[i].point.x, y = self.m_base, z = self.points[i].point.z}};
                             }
                             break;
-                        case SplineEditorUtility.ESpace2D.YZ:
+                        case Spline.ESpace2D.YZ:
                             for (int i = 0; i < self.points.Count; i++)
                             {
-                                self.points[i] = new B_Spline.Point{point = new Vector3{x = m_base, y = self.points[i].point.y, z = self.points[i].point.z}};
+                                self.points[i] = new B_Spline.Point{point = new Vector3{x = self.m_base, y = self.points[i].point.y, z = self.points[i].point.z}};
                             }
                             break;
                         default:
@@ -112,13 +86,13 @@ public class B_SplineEditor : SplineEditor<B_Spline>
             GUILayout.BeginVertical(GUILayout.Width(itemWidth));
             {
                 GUILayout.Label("Space");
-                m_space2D = (SplineEditorUtility.ESpace2D) EditorGUILayout.EnumPopup(m_space2D);
+                self.m_space2D = (Spline.ESpace2D) EditorGUILayout.EnumPopup(self.m_space2D);
             } GUILayout.EndVertical();
 
             GUILayout.BeginVertical(GUILayout.Width(itemWidth));
             {
                 GUILayout.Label("Base");
-                m_base = EditorGUILayout.FloatField(m_base);
+                self.m_base = EditorGUILayout.FloatField(self.m_base);
             } GUILayout.EndVertical();
             
         } GUILayout.EndHorizontal();
