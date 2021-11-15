@@ -18,13 +18,7 @@ public abstract class Spline : MonoBehaviour
     [HideInInspector] public float m_base = 0f;
     [HideInInspector] public string m_path;
 #endif
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        enabled = false;
-    }
-    
+
     public abstract Vector3 GetLocalInterpolation(int pointIndex, float t);
     
     public Vector3 GetGlobalInterpolation(float t)
