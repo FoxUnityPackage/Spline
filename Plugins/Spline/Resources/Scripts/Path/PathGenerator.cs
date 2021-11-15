@@ -11,17 +11,19 @@ public class PathGenerator : MonoBehaviour
     public void GenerateMesh()
     {
         Debug.Assert(meshFilter != null, "meshFilter != null");
-        
-        Mesh mesh = new Mesh();
-        mesh.name = "GeneratedMesh";
-        
         Vector3[] points = spline.MakeSplinePoints(division);
         
-        mesh.SetVertices(GenerateVertices(points));
-        mesh.SetIndices(GenerateIndices(points), MeshTopology.Triangles, 0);
-        mesh.SetUVs(0, GenerateUVs(points));
+        if (points != null)
+        {
+            Mesh mesh = new Mesh();
+            mesh.name = "GeneratedMesh";
+            
+            mesh.SetVertices(GenerateVertices(points));
+            mesh.SetIndices(GenerateIndices(points), MeshTopology.Triangles, 0);
+            mesh.SetUVs(0, GenerateUVs(points));
 
-        meshFilter.mesh = mesh;
+            meshFilter.mesh = mesh;
+        }
     }
 
     Vector3[] GenerateVertices(Vector3[] points)

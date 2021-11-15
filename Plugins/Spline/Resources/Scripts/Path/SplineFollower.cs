@@ -9,8 +9,10 @@ public class SplineFollower : MonoBehaviour
     
     void Update()
     {
-        m_t += Time.deltaTime * speed;
-
-        transform.position = spline.GetGlobalInterpolation(Mathf.PingPong(m_t, 1f));
+        if (spline.IsValid())
+        {
+            m_t += Time.deltaTime * speed;
+            transform.position = spline.GetGlobalInterpolation(Mathf.PingPong(m_t, 1f));
+        }
     }
 }

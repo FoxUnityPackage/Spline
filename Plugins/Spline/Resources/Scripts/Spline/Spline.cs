@@ -41,4 +41,14 @@ public abstract class Spline : MonoBehaviour
     public abstract int GetMinPassagePointIndex();
     
     public abstract int GetPassagePointIndexStep();
+    public bool IsIndexValid(int index)
+    {
+        return index > GetMaxPassagePointIndex() && index < GetMinPassagePointIndex();
+    }
+    
+    public bool IsValid()
+    {
+        return GetMaxPassagePointIndex() > GetMinPassagePointIndex();
+    }
+    
 }

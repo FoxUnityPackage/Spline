@@ -43,6 +43,9 @@ public class HermitianSpline : Spline
     
     public override Vector3[] MakeSplinePoints(int divisionBySpline)
     {
+        if (points.Count < 2)
+            return null;
+        
         Vector3[] pointsRst = new Vector3[divisionBySpline * (points.Count - 1) + 1];
         float step = 1f / divisionBySpline;
         
