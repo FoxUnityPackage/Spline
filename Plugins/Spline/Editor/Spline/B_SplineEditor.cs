@@ -1,11 +1,10 @@
 using System;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 // A tiny custom editor for ExampleScript component
 [CustomEditor(typeof(B_Spline))]
-public class B_SplineEditor : Editor
+public class B_SplineEditor : SplineEditor<B_Spline>
 {
     // Custom in-scene UI for when Spline script
     // component is selected.
@@ -16,10 +15,6 @@ public class B_SplineEditor : Editor
     private SplineEditorUtility.ESpace2D m_space2D = SplineEditorUtility.ESpace2D.XY;
     private float m_base = 0f;
     
-    private void OnEnable()
-    {
-        self = target as B_Spline;
-    }
 
     protected virtual void OnSceneGUI()
     {
@@ -59,6 +54,9 @@ public class B_SplineEditor : Editor
         
         SplineEditorUtility.DrawUILine(Color.gray, 1, 5);
         Space2DSetting();
+        
+        SplineEditorUtility.DrawUILine(Color.gray, 1, 5);
+        ImportExportSetting();
     }
     
     void CloseShapeSetting()

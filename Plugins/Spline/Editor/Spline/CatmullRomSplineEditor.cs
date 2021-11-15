@@ -1,30 +1,20 @@
 using System;
-using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using Directory = UnityEngine.Windows.Directory;
 
 // A tiny custom editor for ExampleScript component
 [CustomEditor(typeof(CatmullRomSpline))]
-public class CatmullRomSplineEditor : Editor
+public class CatmullRomSplineEditor : SplineEditor<CatmullRomSpline>
 {
     // Custom in-scene UI for when Spline script
     // component is selected.
     private float pointSize = 0.1f;
     private int splineDivision = 20;
     private bool isExtremityAdd = false;
-    private CatmullRomSpline self = null;
     
     private SplineEditorUtility.ESpace2D m_space2D = SplineEditorUtility.ESpace2D.XY;
     private float m_base = 0f;
-
-    private string m_path;
-    
-    private void OnEnable()
-    {
-        self = target as CatmullRomSpline;
-    }
 
     protected virtual void OnSceneGUI()
     {
@@ -152,62 +142,5 @@ public class CatmullRomSplineEditor : Editor
             } GUILayout.EndVertical();
             
         } GUILayout.EndHorizontal();
-    }
-
-    public void ImportExportSetting()
-    {
-        GUILayout.BeginHorizontal();
-        {
-            if (GUILayout.Button((m_path != null && m_path.Length == 0) ? "Select path" : m_path))
-            {
-                m_path = EditorUtility.OpenFolderPanel("Import/Export folder", "", "");
-                
-                // Convert absolute to relative path
-                if (m_path.StartsWith(Application.dataPath))
-                {
-                    m_path=  "Assets" + m_path.Substring(Application.dataPath.Length);
-                }
-                
-                //Create Directory if it does not exist
-                if (!Directory.Exists(Path.GetDirectoryName(m_path)))
-                {
-                    Directory.CreateDirectory(Path.GetDirectoryName(m_path));
-                }
-
-            }
-
-            if (GUILayout.Button("Import"))
-            {
-                Import();
-            }
-
-            if (m_path != null && m_path.Length != 0)
-            {
-                if (GUILayout.Button("Export"))
-                {
-                    Export();
-                }
-            }
-        } GUILayout.EndHorizontal();
-    }
-
-    public void Import()
-    {
-        self.Load(EditorUtility.OpenFilePanel("Import/Export folder", "", "dat"));
-        EditorUtility.SetDirty(target);
-    }
-
-    public void Export()
-    {
-        string dst;
-
-        int id = -1;
-        //Looking for a new default file name
-        do
-        {
-            dst = Path.Combine(m_path, (++id == 0 ? "spline" : $"spline{id}") + ".dat");
-        } while (File.Exists(dst));
-        
-        self.Save(dst);
     }
 }

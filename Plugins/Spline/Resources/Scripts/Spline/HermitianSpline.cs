@@ -60,17 +60,19 @@ public class HermitianSpline : Spline
 
     public override void Save(string dst)
     {
-        //Write some text to the test.txt file
-        StreamWriter writer = new StreamWriter(dst, true);
-        writer.WriteLine(JsonUtility.ToJson(points));
-        writer.Close();
+        using (StreamWriter writer = new StreamWriter(dst))
+        {
+            writer.WriteLine(JsonHelper.ToJson(points.ToArray()));
+            writer.Close();
+        }
     }
     
     public override void Load(string src)
     {
-        //Write some text to the test.txt file
-        StreamReader reader = new StreamReader(src, true);
-        points = JsonUtility.FromJson<List<Point>>(reader.ReadToEnd());
-        reader.Close();
+        using (StreamReader reader = new StreamReader(src))
+        {
+            points = new List<Point>(JsonHelper.FromJson<Point>(reader.ReadToEnd()));
+            reader.Close();
+        }
     }
 }

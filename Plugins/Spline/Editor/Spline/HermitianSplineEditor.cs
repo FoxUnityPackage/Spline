@@ -4,23 +4,17 @@ using UnityEngine;
 
 // A tiny custom editor for ExampleScript component
 [CustomEditor(typeof(HermitianSpline))]
-public class HermitianSplineEditor : Editor
+public class HermitianSplineEditor : SplineEditor<HermitianSpline>
 {
     // Custom in-scene UI for when Spline script
     // component is selected.
     private float pointSize = 0.1f;
     private float handleSize = 0.25f;
     private int splineDivision = 20;
-    private HermitianSpline self = null;
     
     private SplineEditorUtility.ESpace2D m_space2D = SplineEditorUtility.ESpace2D.XY;
     private float m_base = 0f;
-
-    private void OnEnable()
-    {
-        self = target as HermitianSpline;
-    }
-
+    
     protected virtual void OnSceneGUI()
     {
         if (!self.enabled)
@@ -67,6 +61,9 @@ public class HermitianSplineEditor : Editor
         
         SplineEditorUtility.DrawUILine(Color.gray, 1, 5);
         Space2DSetting();
+        
+        SplineEditorUtility.DrawUILine(Color.gray, 1, 5);
+        ImportExportSetting();
     }
     
     void CloseShapeSetting()

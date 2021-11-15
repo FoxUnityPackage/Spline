@@ -6,7 +6,7 @@ using UnityEngine;
 
 // A tiny custom editor for ExampleScript component
 [CustomEditor(typeof(BezierSpline))]
-public class BezierSplineEditor : Editor
+public class BezierSplineEditor : SplineEditor<BezierSpline>
 {
     // Custom in-scene UI for when Spline script
     // component is selected.
@@ -14,15 +14,9 @@ public class BezierSplineEditor : Editor
     private int splineDivision = 20;
     private bool isExtremityAdd = false;
     private bool isContinues = true;
-    private BezierSpline self = null;
     
     private SplineEditorUtility.ESpace2D m_space2D = SplineEditorUtility.ESpace2D.XY;
     private float m_base = 0f;
-    
-    private void OnEnable()
-    {
-        self = target as BezierSpline;
-    }
 
     protected virtual void OnSceneGUI()
     {
@@ -113,6 +107,9 @@ public class BezierSplineEditor : Editor
         
         SplineEditorUtility.DrawUILine(Color.gray, 1, 5);
         Space2DSetting();
+        
+        SplineEditorUtility.DrawUILine(Color.gray, 1, 5);
+        ImportExportSetting();
     }
 
     void CloseShapeSetting()
