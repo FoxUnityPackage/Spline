@@ -6,11 +6,13 @@ public class PathGenerator : MonoBehaviour
     public MeshFilter meshFilter;
     [SerializeField] public Vector3 biTangeante = Vector3.back;
     public float scale = 0.1f;
+    [Min(3)]
+    public int division;
     
     public void GenerateMesh()
     {
         Debug.Assert(meshFilter != null, "meshFilter != null");
-        Vector3[] points = spline.MakeSplinePoints(spline.splineDivision);
+        Vector3[] points = spline.MakeSplinePoints(division);
         
         if (points != null)
         {

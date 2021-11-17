@@ -101,17 +101,17 @@ public class BezierSpline : Spline
         }
     }
     
-    public override int GetMaxPassagePointIndex()
+    public override int GetMaxIndex()
     {
         return points.Count;
     }
     
-    public override int GetMinPassagePointIndex()
+    public override int GetMinIndex()
     {
         return 0;
     }
     
-    public override int GetPassagePointIndexStep()
+    public override int GetIndexStep()
     {
         return 4;
     }

@@ -11,20 +11,19 @@ public abstract class Spline : MonoBehaviour
         YZ
     };
     
-    [HideInInspector] public float pointSize = 0.1f;
-    
-    [HideInInspector] public ESpace2D m_space2D = ESpace2D.XY;
-    [HideInInspector] public float m_base = 0f;
-    [HideInInspector] public string m_path;
+    [SerializeField, HideInInspector] private int m_splineDivision = 20;
+    [SerializeField, HideInInspector] private float m_pointSize = 0.1f;
+    [SerializeField, HideInInspector] private ESpace2D m_space2D = ESpace2D.XY;
+    [SerializeField, HideInInspector] private float m_base = 0f;
+    [SerializeField, HideInInspector] private string m_path;
 #endif
-    [HideInInspector] public int splineDivision = 20;
 
     public abstract Vector3 GetLocalInterpolation(int pointIndex, float t);
     
     public Vector3 GetGlobalInterpolation(float t)
     {
-        float interval = (GetMaxPassagePointIndex() - GetMinPassagePointIndex()) / GetPassagePointIndexStep() * t;
-        int index = ((int)(interval) + GetMinPassagePointIndex()) * GetPassagePointIndexStep();
+        float interval = (GetMaxIndex() - GetMinIndex()) / GetIndexStep() * t;
+        int index = ((int)(interval) + GetMinIndex()) * GetIndexStep();
         float localT = interval % 1f;
         
         return GetLocalInterpolation(index, localT);
@@ -37,19 +36,19 @@ public abstract class Spline : MonoBehaviour
 
     public abstract void Load(string src);
 
-    public abstract int GetMaxPassagePointIndex();
+    public abstract int GetMaxIndex();
     
-    public abstract int GetMinPassagePointIndex();
+    public abstract int GetMinIndex();
     
-    public abstract int GetPassagePointIndexStep();
+    public abstract int GetIndexStep();
     public bool IsIndexValid(int index)
     {
-        return index < GetMaxPassagePointIndex() && index >= GetMinPassagePointIndex();
+        return index < GetMaxIndex() && index >= GetMinIndex();
     }
     
     public bool IsValid()
     {
-        return GetMaxPassagePointIndex() > GetMinPassagePointIndex();
+        return GetMaxIndex() > GetMinIndex();
     }
 
 
@@ -71,7 +70,7 @@ public abstract class Spline : MonoBehaviour
     public float GetGlobalDistance(int divisionBySpline)
     {
         float rst = 0;
-        for (int i = GetMinPassagePointIndex(); i < GetMaxPassagePointIndex(); i+= GetPassagePointIndexStep())
+        for (int i = GetMinIndex(); i < GetMaxIndex(); i+= GetIndexStep())
         {
             rst += GetLocalDistance(i, divisionBySpline);
         }

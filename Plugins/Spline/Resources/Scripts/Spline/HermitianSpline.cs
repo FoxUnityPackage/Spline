@@ -99,17 +99,17 @@ public class HermitianSpline : Spline
         }
     }
     
-    public override int GetMaxPassagePointIndex()
+    public override int GetMaxIndex()
     {
         return points.Count - 1;
     }
     
-    public override int GetMinPassagePointIndex()
+    public override int GetMinIndex()
     {
         return 0;
     }
     
-    public override int GetPassagePointIndexStep()
+    public override int GetIndexStep()
     {
         return 1;
     }

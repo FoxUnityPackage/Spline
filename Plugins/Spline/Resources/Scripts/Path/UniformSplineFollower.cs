@@ -7,6 +7,8 @@ public class UniformSplineFollower : MonoBehaviour
     protected float m_splineDistance;
     protected float m_currentDistance;
 
+    [Min(3)]
+    public int prescision;
     public Spline spline;
     [Tooltip("In m/s")] public float speed;
 
@@ -38,17 +40,17 @@ public class UniformSplineFollower : MonoBehaviour
 
     private void Setup()
     {
-        m_splineIndex = spline.GetMinPassagePointIndex();
+        m_splineIndex = spline.GetMinIndex();
         m_t = 0f;
         m_currentDistance = 0f;
-        m_splineDistance = spline.GetLocalDistance(m_splineIndex, spline.splineDivision);
+        m_splineDistance = spline.GetLocalDistance(m_splineIndex, prescision);
 
         isInit = true;
     }
 
     void ProcessNextSplinePath()
     {
-        m_splineIndex += spline.GetPassagePointIndexStep();
+        m_splineIndex += spline.GetIndexStep();
         if (!spline.IsIndexValid(m_splineIndex))
         {
             Setup();
@@ -56,7 +58,7 @@ public class UniformSplineFollower : MonoBehaviour
         else
         {
             m_currentDistance -= m_splineDistance;
-            m_splineDistance = spline.GetLocalDistance(m_splineIndex, spline.splineDivision);
+            m_splineDistance = spline.GetLocalDistance(m_splineIndex, prescision);
             m_t = m_currentDistance / m_splineDistance;
         }
     }
