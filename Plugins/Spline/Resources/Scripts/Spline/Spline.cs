@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public abstract class Spline : MonoBehaviour
@@ -12,12 +13,12 @@ public abstract class Spline : MonoBehaviour
     };
     
     [HideInInspector] public float pointSize = 0.1f;
-    [HideInInspector] public int splineDivision = 20;
     
     [HideInInspector] public ESpace2D m_space2D = ESpace2D.XY;
     [HideInInspector] public float m_base = 0f;
     [HideInInspector] public string m_path;
 #endif
+    [HideInInspector] public int splineDivision = 20;
 
     public abstract Vector3 GetLocalInterpolation(int pointIndex, float t);
     
@@ -31,6 +32,7 @@ public abstract class Spline : MonoBehaviour
     }
 
     public abstract Vector3[] MakeSplinePoints(int divisionBySpline);
+    public abstract Vector3[] MakeLocalSplinePoints(int pointIndex, int divisionBySpline);
 
     public abstract void Save(string dst);
 
@@ -43,12 +45,37 @@ public abstract class Spline : MonoBehaviour
     public abstract int GetPassagePointIndexStep();
     public bool IsIndexValid(int index)
     {
-        return index > GetMaxPassagePointIndex() && index < GetMinPassagePointIndex();
+        return index < GetMaxPassagePointIndex() && index >= GetMinPassagePointIndex();
     }
     
     public bool IsValid()
     {
         return GetMaxPassagePointIndex() > GetMinPassagePointIndex();
     }
-    
+
+
+    public float GetLocalDistance(int pointIndex, int divisionBySpline)
+    {
+        Vector3[] points = MakeLocalSplinePoints(pointIndex, divisionBySpline);
+        float rst = 0;
+        if (points != null && points.Length > 1)
+        {
+            for (int i = 1; i < points.Length; i++)
+            {
+                rst += (points[i] - points[i - 1]).magnitude;
+            }
+        }
+        
+        return rst;
+    }
+
+    public float GetGlobalDistance(int divisionBySpline)
+    {
+        float rst = 0;
+        for (int i = GetMinPassagePointIndex(); i < GetMaxPassagePointIndex(); i+= GetPassagePointIndexStep())
+        {
+            rst += GetLocalDistance(i, divisionBySpline);
+        }
+        return rst;
+    }
 }

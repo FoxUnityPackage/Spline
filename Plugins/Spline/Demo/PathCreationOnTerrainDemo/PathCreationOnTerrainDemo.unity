@@ -350,10 +350,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointSize: 0.1
-  splineDivision: 20
   m_space2D: 0
   m_base: 0
   m_path: Assets/Spline.json
+  splineDivision: 20
   handleSize: 0.25
   points:
   - point: {x: 0, y: 0, z: 0}
@@ -493,6 +493,104 @@ MonoBehaviour:
   desiredPosition: {x: 0.7, y: 44, z: -22.4}
   X_Smooth: 0.05
   Y_Smooth: 0.1
+--- !u!1 &378091901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 378091905}
+  - component: {fileID: 378091904}
+  - component: {fileID: 378091903}
+  - component: {fileID: 378091902}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &378091902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378091901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd651c9ed4e22740b9cace9155707f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_splineDistance: 0
+  m_currentDistance: 0
+  spline: {fileID: 1405101008}
+  speed: 5
+--- !u!23 &378091903
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378091901}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &378091904
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378091901}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &378091905
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378091901}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.471363, y: -1.7931399, z: -18.868078}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &553672685
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,7 +689,6 @@ MonoBehaviour:
   meshFilter: {fileID: 0}
   biTangeante: {x: 0, y: 0, z: -1}
   scale: 0.1
-  division: 10
 --- !u!1 &644926662
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,10 +719,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointSize: 0.1
-  splineDivision: 20
   m_space2D: 0
   m_base: 0
   m_path: Assets/BSpline.dat
+  splineDivision: 20
   points:
   - point: {x: 7.5602775, y: 2.0227287, z: 0}
   - point: {x: 5.2383733, y: 3.1173525, z: 0}
@@ -745,7 +842,6 @@ MonoBehaviour:
   meshFilter: {fileID: 0}
   biTangeante: {x: 0, y: 0, z: -1}
   scale: 0.1
-  division: 10
 --- !u!4 &646149567
 Transform:
   m_ObjectHideFlags: 0
@@ -804,10 +900,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointSize: 0.1
-  splineDivision: 10
   m_space2D: 0
   m_base: 0
   m_path: Assets/SplineClod.dat
+  splineDivision: 10
   isExtremityAdd: 0
   isContinues: 0
   points:
@@ -1547,6 +1643,7 @@ GameObject:
   - component: {fileID: 1405101005}
   - component: {fileID: 1405101007}
   - component: {fileID: 1405101006}
+  - component: {fileID: 1405101008}
   m_Layer: 0
   m_Name: Path
   m_TagString: Untagged
@@ -1562,7 +1659,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405101004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1617,6 +1714,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405101004}
   m_Mesh: {fileID: 0}
+--- !u!114 &1405101008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405101004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59a268703c443494fbf9f67b955d0403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointSize: 0.1
+  m_space2D: 0
+  m_base: 0
+  m_path: 
+  splineDivision: 3
+  isExtremityAdd: 0
+  points: []
 --- !u!43 &1570255837
 Mesh:
   m_ObjectHideFlags: 0
@@ -1879,7 +1995,6 @@ MonoBehaviour:
   meshFilter: {fileID: 0}
   biTangeante: {x: 0, y: 0, z: -1}
   scale: 0.1
-  division: 10
 --- !u!1 &1687068292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1978,7 +2093,6 @@ MonoBehaviour:
   meshFilter: {fileID: 0}
   biTangeante: {x: 0, y: 0, z: -1}
   scale: 0.1
-  division: 10
 --- !u!1 &1727134947
 GameObject:
   m_ObjectHideFlags: 0
@@ -2075,10 +2189,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointSize: 0.1
-  splineDivision: 20
   m_space2D: 0
   m_base: 0
   m_path: 
+  splineDivision: 20
   isExtremityAdd: 0
   points:
   - point: {x: 0.057111025, y: 0.000019550323, z: 0}
@@ -2143,7 +2257,6 @@ MonoBehaviour:
   cursorSelection: {fileID: 1486823897831134, guid: 12bd5775218bf81419f97f48fe2cc918, type: 3}
   pathOwner: {fileID: 1405101004}
   splineType: 0
-  generator: {fileID: 0}
 --- !u!4 &1892659237
 Transform:
   m_ObjectHideFlags: 0
@@ -2173,8 +2286,7 @@ MonoBehaviour:
   spline: {fileID: 0}
   meshFilter: {fileID: 1405101007}
   biTangeante: {x: 0, y: 1, z: 0}
-  scale: 0.1
-  division: 10
+  scale: 0.5
 --- !u!1001 &1906610300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2185,6 +2297,10 @@ PrefabInstance:
     - target: {fileID: 1441160847464296, guid: c13335fbad29c4c459e2c93137e42312, type: 3}
       propertyPath: m_Name
       value: Terrain_01_low2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1441160847464296, guid: c13335fbad29c4c459e2c93137e42312, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4548470040626840, guid: c13335fbad29c4c459e2c93137e42312, type: 3}
       propertyPath: m_RootOrder

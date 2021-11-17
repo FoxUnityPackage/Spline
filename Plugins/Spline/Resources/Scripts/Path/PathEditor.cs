@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Debug = System.Diagnostics.Debug;
 
 [Serializable]
 public enum ESplineType
@@ -53,6 +52,7 @@ public class PathEditor : MonoBehaviour
                             if (m_editedSpline == null)
                                 m_editedSpline = pathOwner.AddComponent<CatmullRomSpline>();
                             // Duplicate first point to make sur that spline pass in the first control point
+                            m_editedSpline.points.Add(new CatmullRomSpline.Point {point = hit.point});
                             m_editedSpline.points.Add(new CatmullRomSpline.Point {point = hit.point});
                             break;
                         default:

@@ -3,7 +3,6 @@ using UnityEngine;
 public class SplineFollower : MonoBehaviour
 {
     protected float m_t;
-    protected int m_checkPointIndex = 0;
     public Spline spline;
     public float speed;
     

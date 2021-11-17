@@ -65,6 +65,24 @@ public class HermitianSpline : Spline
         return pointsRst;
     }
 
+    public override Vector3[] MakeLocalSplinePoints(int pointIndex, int divisionBySpline)
+    {
+        if (!IsIndexValid(pointIndex))
+            return null;
+        
+        Vector3[] pointsRst = new Vector3[divisionBySpline + 1];
+        float step = 1f / divisionBySpline;
+
+        float t = 0f;
+        for (int j = 0; j < pointsRst.Length; j++)
+        {
+            pointsRst[j] = GetLocalInterpolation(pointIndex, t);
+            t += step;
+        }
+
+        return pointsRst;
+    }
+    
     public override void Save(string dst)
     {
         using (StreamWriter writer = new StreamWriter(dst))

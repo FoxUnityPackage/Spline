@@ -46,7 +46,7 @@ public class CatmullRomSpline : Spline
         if (points.Count < 4)
             return null;
         
-        int totalPoint = points.Count - 3;   
+        int totalPoint = points.Count - 3;
         Vector3[] pointsRst = new Vector3[divisionBySpline * totalPoint + 1];
         float step = 1f / divisionBySpline;
         
@@ -63,6 +63,24 @@ public class CatmullRomSpline : Spline
         // Include the last point
         if (totalPoint > 0)
             pointsRst[pointsRst.Length - 1] = GetLocalInterpolation(totalPoint + 2, 1);
+
+        return pointsRst;
+    }
+
+    public override Vector3[] MakeLocalSplinePoints(int pointIndex, int divisionBySpline)
+    {
+        if (!IsIndexValid(pointIndex))
+            return null;
+        
+        Vector3[] pointsRst = new Vector3[divisionBySpline + 1];
+        float step = 1f / divisionBySpline;
+
+        float t = 0f;
+        for (int j = 0; j < pointsRst.Length; j++)
+        {
+            pointsRst[j] = GetLocalInterpolation(pointIndex, t);
+            t += step;
+        }
 
         return pointsRst;
     }
