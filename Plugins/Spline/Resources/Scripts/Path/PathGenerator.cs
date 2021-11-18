@@ -8,7 +8,7 @@ public class PathGenerator : MonoBehaviour
     public float scale = 0.1f;
     [Min(3)]
     public int division;
-    
+
     public void GenerateMesh()
     {
         Debug.Assert(meshFilter != null, "meshFilter != null");

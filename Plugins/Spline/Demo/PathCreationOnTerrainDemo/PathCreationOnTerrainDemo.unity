@@ -349,11 +349,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cb48d1709a2bf49bcd9158e460e888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointSize: 0.1
+  m_splineDivision: 20
+  m_pointSize: 0.1
   m_space2D: 0
   m_base: 0
   m_path: Assets/Spline.json
-  splineDivision: 20
   handleSize: 0.25
   points:
   - point: {x: 0, y: 0, z: 0}
@@ -524,8 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd651c9ed4e22740b9cace9155707f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_splineDistance: 0
-  m_currentDistance: 0
+  prescision: 0
   spline: {fileID: 1405101008}
   speed: 5
 --- !u!23 &378091903
@@ -689,6 +688,7 @@ MonoBehaviour:
   meshFilter: {fileID: 0}
   biTangeante: {x: 0, y: 0, z: -1}
   scale: 0.1
+  division: 0
 --- !u!1 &644926662
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,11 +718,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d738c32dbb8ef64ea1090467b70f02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointSize: 0.1
+  m_splineDivision: 3
+  m_pointSize: 0.1
   m_space2D: 0
-  m_base: 0
+  m_base: 1.69
   m_path: Assets/BSpline.dat
-  splineDivision: 20
   points:
   - point: {x: 7.5602775, y: 2.0227287, z: 0}
   - point: {x: 5.2383733, y: 3.1173525, z: 0}
@@ -842,6 +842,7 @@ MonoBehaviour:
   meshFilter: {fileID: 0}
   biTangeante: {x: 0, y: 0, z: -1}
   scale: 0.1
+  division: 0
 --- !u!4 &646149567
 Transform:
   m_ObjectHideFlags: 0
@@ -899,11 +900,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e42ea119926264283174899e1d29dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointSize: 0.1
+  m_splineDivision: 20
+  m_pointSize: 0.1
   m_space2D: 0
   m_base: 0
   m_path: Assets/SplineClod.dat
-  splineDivision: 10
   isExtremityAdd: 0
   isContinues: 0
   points:
@@ -1726,11 +1727,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a268703c443494fbf9f67b955d0403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointSize: 0.1
+  m_splineDivision: 20
+  m_pointSize: 0.1
   m_space2D: 0
   m_base: 0
   m_path: 
-  splineDivision: 3
   isExtremityAdd: 0
   points: []
 --- !u!43 &1570255837
@@ -1995,6 +1996,7 @@ MonoBehaviour:
   meshFilter: {fileID: 0}
   biTangeante: {x: 0, y: 0, z: -1}
   scale: 0.1
+  division: 0
 --- !u!1 &1687068292
 GameObject:
   m_ObjectHideFlags: 0
@@ -2093,6 +2095,7 @@ MonoBehaviour:
   meshFilter: {fileID: 0}
   biTangeante: {x: 0, y: 0, z: -1}
   scale: 0.1
+  division: 0
 --- !u!1 &1727134947
 GameObject:
   m_ObjectHideFlags: 0
@@ -2188,11 +2191,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a268703c443494fbf9f67b955d0403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointSize: 0.1
+  m_splineDivision: 20
+  m_pointSize: 0.1
   m_space2D: 0
   m_base: 0
   m_path: 
-  splineDivision: 20
   isExtremityAdd: 0
   points:
   - point: {x: 0.057111025, y: 0.000019550323, z: 0}
@@ -2287,6 +2290,7 @@ MonoBehaviour:
   meshFilter: {fileID: 1405101007}
   biTangeante: {x: 0, y: 1, z: 0}
   scale: 0.5
+  division: 0
 --- !u!1001 &1906610300
 PrefabInstance:
   m_ObjectHideFlags: 0

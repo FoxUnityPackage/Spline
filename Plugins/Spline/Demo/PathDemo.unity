@@ -349,8 +349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cb48d1709a2bf49bcd9158e460e888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointSize: 0.1
-  splineDivision: 20
+  m_splineDivision: 20
+  m_pointSize: 0.1
   m_space2D: 0
   m_base: 0
   m_path: Assets/Spline.json
@@ -467,6 +467,138 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &288205290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 288205291}
+  m_Layer: 0
+  m_Name: CatmullRomCentripetalSpline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &288205291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288205290}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 438617794}
+  - {fileID: 917092455}
+  - {fileID: 686563925}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &438617793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 438617794}
+  - component: {fileID: 438617797}
+  - component: {fileID: 438617796}
+  - component: {fileID: 438617795}
+  m_Layer: 0
+  m_Name: PathCreator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &438617794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438617793}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 288205291}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &438617795
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438617793}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 682137a857de8474bbbeb9d7e801ba7f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &438617796
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438617793}
+  m_Mesh: {fileID: 0}
+--- !u!114 &438617797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438617793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7f84f5b62e3a2a45891d49f34000b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spline: {fileID: 0}
+  meshFilter: {fileID: 0}
+  biTangeante: {x: 0, y: 0, z: -1}
+  scale: 0.1
+  division: 0
 --- !u!1 &553672685
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,6 +694,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 726316473}
+  meshFilter: {fileID: 0}
+  biTangeante: {x: 0, y: 0, z: -1}
+  scale: 0.1
+  division: 0
 --- !u!1 &644926662
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,8 +727,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d738c32dbb8ef64ea1090467b70f02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointSize: 0.1
-  splineDivision: 20
+  m_splineDivision: 20
+  m_pointSize: 0.1
   m_space2D: 0
   m_base: 0
   m_path: Assets/BSpline.dat
@@ -712,6 +848,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 1790652072}
+  meshFilter: {fileID: 0}
+  biTangeante: {x: 0, y: 0, z: -1}
+  scale: 0.1
+  division: 0
 --- !u!4 &646149567
 Transform:
   m_ObjectHideFlags: 0
@@ -726,6 +866,102 @@ Transform:
   m_Father: {fileID: 145617276}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &686563924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 686563925}
+  - component: {fileID: 686563928}
+  - component: {fileID: 686563927}
+  - component: {fileID: 686563926}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &686563925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686563924}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 288205291}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &686563926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686563924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b17534227f5442748b25e8d564d0c6c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spline: {fileID: 0}
+  speed: 0.1
+--- !u!23 &686563927
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686563924}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &686563928
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686563924}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &726316471
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,8 +1005,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e42ea119926264283174899e1d29dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointSize: 0.1
-  splineDivision: 10
+  m_splineDivision: 20
+  m_pointSize: 0.1
   m_space2D: 0
   m_base: 0
   m_path: Assets/SplineClod.dat
@@ -957,6 +1193,66 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &917092454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 917092455}
+  - component: {fileID: 917092456}
+  m_Layer: 0
+  m_Name: PathSpline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &917092455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917092454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 288205291}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &917092456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917092454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51728b5aed297714bab8dbec57560721, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_splineDivision: 20
+  m_pointSize: 0.1
+  m_space2D: 0
+  m_base: 0
+  m_path: 
+  isExtremityAdd: 0
+  alpha: 0.45
+  points:
+  - point: {x: -4.6721296, y: 0.8868614, z: 0.2510748}
+  - point: {x: -1.5311722, y: 1.5511162, z: 0.09684849}
+  - point: {x: 0.0006303787, y: 4.512977, z: 0.10408306}
+  - point: {x: 7.1429124, y: 0.5487698, z: -0.3255396}
+  - point: {x: 6.338468, y: -0.48973548, z: -0.31183577}
+  - point: {x: 4.637463, y: 5.1183276, z: -0.14589977}
+  - point: {x: 8.387928, y: 0.44093752, z: -0.39630842}
+  - point: {x: 9.486235, y: 4.469122, z: -0.36889553}
+  - point: {x: 14.208109, y: -2.5305872, z: -0.72052}
 --- !u!1 &952052284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1761,6 +2057,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 644926663}
+  meshFilter: {fileID: 0}
+  biTangeante: {x: 0, y: 0, z: -1}
+  scale: 0.1
+  division: 0
 --- !u!1 &1687068292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,6 +2156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 251974295}
+  meshFilter: {fileID: 0}
+  biTangeante: {x: 0, y: 0, z: -1}
+  scale: 0.1
+  division: 0
 --- !u!1 &1727134947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1871,7 +2175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1727134948
 Transform:
   m_ObjectHideFlags: 0
@@ -1951,8 +2255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a268703c443494fbf9f67b955d0403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointSize: 0.1
-  splineDivision: 20
+  m_splineDivision: 20
+  m_pointSize: 0.1
   m_space2D: 0
   m_base: 0
   m_path: 
