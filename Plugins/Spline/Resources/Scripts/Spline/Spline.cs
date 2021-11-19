@@ -88,10 +88,13 @@ public abstract class Spline : MonoBehaviour
     
     public void Load(string src)
     {
-        using (StreamReader reader = new StreamReader(src))
+        if (File.Exists(src))
         {
-            points = new List<Vector3>(JsonHelper.FromJson<Vector3>(reader.ReadToEnd()));
-            reader.Close();
+            using (StreamReader reader = new StreamReader(src))
+            {
+                points = new List<Vector3>(JsonHelper.FromJson<Vector3>(reader.ReadToEnd()));
+                reader.Close();
+            }
         }
     }
 }

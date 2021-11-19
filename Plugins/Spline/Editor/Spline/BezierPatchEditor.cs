@@ -9,7 +9,7 @@ public class BezierPatchEditor : Editor
     // Custom in-scene UI for when Spline script
     // component is selected.
     private float pointSize = 0.1f;
-    private int splineDivision = 20;
+    private int splineDivision = 10;
     private bool isExtremityAdd = false;
     private bool isContinues = true;
     private BezierPatch self = null;
