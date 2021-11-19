@@ -34,7 +34,11 @@ public abstract class Spline : MonoBehaviour
     /// Get the point based on t in a specific spline indicate by the index
     /// </summary>
     /// <param name="pointIndex">This index need to be valid using the function IsIndexValid and correspondent to a specific spline in the while curve
-    /// You can iterate on it thank to loop like that : for (int i = GetMinIndex(); i < GetMaxIndex(); i+= GetIndexStep()){[...]}</param>
+    /// You can iterate on it thank to loop like that :
+    /// <code>
+    /// for (int i = GetMinIndex(); i &#60; GetMaxIndex(); i+= GetIndexStep()){[...]}
+    /// </code>
+    /// </param>
     /// <param name="t"> between 0 and 1. This value is clamped internally</param>
     /// <returns></returns>
     public abstract Vector3 GetLocalInterpolation(int pointIndex, float t);
@@ -64,7 +68,11 @@ public abstract class Spline : MonoBehaviour
     /// Get array of point based on a specific spline
     /// </summary>
     /// <param name="pointIndex">This index need to be valid using the function IsIndexValid and correspondent to a specific spline in the while curve
-    /// You can iterate on it thank to loop like that : for (int i = GetMinIndex(); i < GetMaxIndex(); i+= GetIndexStep()){[...]}</param>
+    /// You can iterate on it thank to loop like that :
+    /// <code>
+    /// for (int i = GetMinIndex(); i &#60; GetMaxIndex(); i+= GetIndexStep()){[...]}
+    /// </code>
+    /// </param>
     /// <param name="t"> between 0 and 1. This value is clamped internally</param>
     /// <returns></returns>
     public abstract Vector3[] MakeLocalSplinePoints(int pointIndex, int divisionBySpline);
@@ -110,7 +118,11 @@ public abstract class Spline : MonoBehaviour
     /// The the distance of a the spline in meter (according to the unity distance convention) for a specific spline
     /// </summary>
     /// <param name="pointIndex">This index need to be valid using the function IsIndexValid and correspondent to a specific spline in the while curve
-    /// You can iterate on it thank to loop like that : for (int i = GetMinIndex(); i < GetMaxIndex(); i+= GetIndexStep()){[...]}</param>
+    /// You can iterate on it thank to loop like that :
+    /// <code>
+    /// for (int i = GetMinIndex(); i &#60; GetMaxIndex(); i+= GetIndexStep()){[...]}
+    /// </code>
+    /// </param>
     /// <param name="divisionBySpline"> the division of each spline. More this value is, more the spline have precision</param>
     /// <returns></returns>
     public float GetLocalDistance(int pointIndex, int divisionBySpline)
@@ -132,7 +144,11 @@ public abstract class Spline : MonoBehaviour
     /// The the distance of a the spline in meter (according to the unity distance convention) for the whole spline
     /// </summary>
     /// <param name="pointIndex">This index need to be valid using the function IsIndexValid and correspondent to a specific spline in the while curve
-    /// You can iterate on it thank to loop like that : for (int i = GetMinIndex(); i < GetMaxIndex(); i+= GetIndexStep()){[...]}</param>
+    /// You can iterate on it thank to loop like that :
+    /// <code>
+    /// for (int i = GetMinIndex(); i &#60; GetMaxIndex(); i+= GetIndexStep()){[...]}
+    /// </code>
+    /// </param>
     /// <param name="divisionBySpline"> the division of each spline. More this value is, more the spline have precision</param>
     /// <returns></returns>
     public float GetGlobalDistance(int divisionBySpline)
