@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -71,5 +72,57 @@ public class SplineEditor<T> : Editor
                 
             } GUILayout.EndHorizontal();
         } GUILayout.EndVertical();
+    }
+    
+    protected void Space2DSetting()
+    { 
+        float itemWidth =  EditorGUIUtility.currentViewWidth / 3f - 10f;
+        GUILayout.BeginHorizontal();
+        {
+            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
+            {
+                GUILayout.Label("");
+                if (GUILayout.Button("Apply 2D"))
+                {
+                    switch (m_space2D.enumValueIndex)
+                    {
+                        case 0 : // XY
+                            for (int i = 0; i < self.points.Count; i++)
+                            {
+                                self.points[i] = new Vector3{x = self.points[i].x, y = self.points[i].y, z = m_base.floatValue};
+                            }
+                            break;
+                        case 1 : // XZ
+                            for (int i = 0; i < self.points.Count; i++)
+                            {
+                                self.points[i] = new Vector3{x = self.points[i].x, y = m_base.floatValue, z = self.points[i].z};
+                            }
+                            break;
+                        case 2 : // YZ
+                            for (int i = 0; i < self.points.Count; i++)
+                            {
+                                self.points[i] = new Vector3{x = m_base.floatValue, y = self.points[i].y, z = self.points[i].z};
+                            }
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    EditorUtility.SetDirty(target);
+                }
+            } GUILayout.EndVertical();
+
+            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
+            {
+                GUILayout.Label("Space");
+                EditorGUILayout.PropertyField(m_space2D, GUIContent.none, false, GUILayout.Width(itemWidth));
+            } GUILayout.EndVertical();
+
+            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
+            {
+                GUILayout.Label("Base");
+                EditorGUILayout.PropertyField(m_base, GUIContent.none, false, GUILayout.Width(itemWidth));
+            } GUILayout.EndVertical();
+            
+        } GUILayout.EndHorizontal();
     }
 }

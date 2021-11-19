@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public abstract class Spline : MonoBehaviour
@@ -18,6 +20,8 @@ public abstract class Spline : MonoBehaviour
     [SerializeField, HideInInspector] private string m_path;
 #endif
 
+    public List<Vector3> points = new List<Vector3>();
+    
     public abstract Vector3 GetLocalInterpolation(int pointIndex, float t);
     
     public Vector3 GetGlobalInterpolation(float t)
@@ -31,11 +35,7 @@ public abstract class Spline : MonoBehaviour
 
     public abstract Vector3[] MakeSplinePoints(int divisionBySpline);
     public abstract Vector3[] MakeLocalSplinePoints(int pointIndex, int divisionBySpline);
-
-    public abstract void Save(string dst);
-
-    public abstract void Load(string src);
-
+    
     public abstract int GetMaxIndex();
     
     public abstract int GetMinIndex();
@@ -75,5 +75,23 @@ public abstract class Spline : MonoBehaviour
             rst += GetLocalDistance(i, divisionBySpline);
         }
         return rst;
+    }
+    
+    public void Save(string dst)
+    {
+        using (StreamWriter writer = new StreamWriter(dst))
+        {
+            writer.WriteLine(JsonHelper.ToJson(points.ToArray(), true));
+            writer.Close();
+        }
+    }
+    
+    public void Load(string src)
+    {
+        using (StreamReader reader = new StreamReader(src))
+        {
+            points = new List<Vector3>(JsonHelper.FromJson<Vector3>(reader.ReadToEnd()));
+            reader.Close();
+        }
     }
 }

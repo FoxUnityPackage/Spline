@@ -18,10 +18,8 @@ public class CatmullRomSplineEditor : SplineEditor<CatmullRomSpline>
         for (int i = 0; i < self.points.Count; i++)
         {
             Handles.color = Color.green;
-            Vector3 newPos = Handles.FreeMoveHandle( self.points[i].point, Quaternion.identity,
-                HandleUtility.GetHandleSize( self.points[i].point) * m_pointSize.floatValue, Vector3.one, Handles.SphereHandleCap);
-            
-            self.points[i] = new CatmullRomSpline.Point{point = newPos};
+            self.points[i] = Handles.FreeMoveHandle( self.points[i], Quaternion.identity,
+                HandleUtility.GetHandleSize( self.points[i]) * m_pointSize.floatValue, Vector3.one, Handles.SphereHandleCap);
         }
     }
     
@@ -40,26 +38,8 @@ public class CatmullRomSplineEditor : SplineEditor<CatmullRomSpline>
             EditorUtility.SetDirty(target);
         }
 
-        if (self.points.Count > 3)
-        {
-            EditorGUI.BeginChangeCheck();
-            self.isExtremityAdd = EditorGUILayout.Toggle("Include extremity", self.isExtremityAdd);
-            if (EditorGUI.EndChangeCheck())
-            {
-                if (self.isExtremityAdd)
-                {
-                    self.points.Insert(0, self.points.First());
-                    self.points.Add(self.points.Last());
-                }
-                else
-                {
-                    self.points.RemoveAt(0);
-                    self.points.RemoveAt(self.points.Count - 1);
-                }
-                EditorUtility.SetDirty(target);
-            }
-        }
-        
+        IncludeExtremitySetting();
+
         SplineEditorUtility.DrawUILine(Color.gray, 1, 5);
         CloseShapeSetting();
         
@@ -72,6 +52,34 @@ public class CatmullRomSplineEditor : SplineEditor<CatmullRomSpline>
         serializedObject.ApplyModifiedProperties();
     }
 
+    void IncludeExtremitySetting()
+    {
+        if (self.points.Count > 3)
+        {
+            EditorGUI.BeginChangeCheck();
+            self.isExtremityAdd = EditorGUILayout.Toggle("Include extremity", self.isExtremityAdd);
+            if (EditorGUI.EndChangeCheck())
+            {
+                IncludeExtremity();
+                EditorUtility.SetDirty(target);
+            }
+        }
+    }
+    
+    void IncludeExtremity()
+    {
+        if (self.isExtremityAdd)
+        {
+            self.points.Insert(0, self.points.First());
+            self.points.Add(self.points.Last());
+        }
+        else
+        {
+            self.points.RemoveAt(0);
+            self.points.RemoveAt(self.points.Count - 1);
+        }
+    }
+    
     void CloseShapeSetting()
     {
         if (self.points.Count > 3)
@@ -79,61 +87,16 @@ public class CatmullRomSplineEditor : SplineEditor<CatmullRomSpline>
             EditorGUI.BeginChangeCheck();
             if (GUILayout.Button("Close shape"))
             {
+                if (!self.isExtremityAdd)
+                {
+                    self.isExtremityAdd = true;
+                    IncludeExtremity();
+                }
+                
                 self.points[self.points.Count - 1] = self.points[self.points.Count - 2] = self.points[0] = self.points[1];
+                
                 EditorUtility.SetDirty(target);
             }
         }
-    }
-    
-    void Space2DSetting()
-    {
-        float itemWidth =  EditorGUIUtility.currentViewWidth / 3f - 10f;
-        GUILayout.BeginHorizontal();
-        {
-            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
-            {
-                GUILayout.Label("");
-                if (GUILayout.Button("Apply 2D"))
-                {
-                    switch (m_space2D.enumValueIndex)
-                    {
-                        case 0 : // XY
-                            for (int i = 0; i < self.points.Count; i++)
-                            {
-                                self.points[i] = new CatmullRomSpline.Point{point = new Vector3{x = self.points[i].point.x, y = self.points[i].point.y, z = m_base.floatValue}};
-                            }
-                            break;
-                        case 1 : // XZ
-                            for (int i = 0; i < self.points.Count; i++)
-                            {
-                                self.points[i] = new CatmullRomSpline.Point{point = new Vector3{x = self.points[i].point.x, y = m_base.floatValue, z = self.points[i].point.z}};
-                            }
-                            break;
-                        case 2 : // YZ
-                            for (int i = 0; i < self.points.Count; i++)
-                            {
-                                self.points[i] = new CatmullRomSpline.Point{point = new Vector3{x = m_base.floatValue, y = self.points[i].point.y, z = self.points[i].point.z}};
-                            }
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                    EditorUtility.SetDirty(target);
-                }
-            } GUILayout.EndVertical();
-
-            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
-            {
-                GUILayout.Label("Space");
-                EditorGUILayout.PropertyField(m_space2D, GUIContent.none, false, GUILayout.Width(itemWidth));
-            } GUILayout.EndVertical();
-
-            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
-            {
-                GUILayout.Label("Base");
-                EditorGUILayout.PropertyField(m_base, GUIContent.none, false, GUILayout.Width(itemWidth));
-            } GUILayout.EndVertical();
-            
-        } GUILayout.EndHorizontal();
     }
 }

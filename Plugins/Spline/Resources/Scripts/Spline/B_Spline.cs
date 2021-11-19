@@ -12,24 +12,16 @@ public class B_Spline : Spline
             new Vector4(1f, 4f, 1f, 0f) / 6f
         );
 
-    [System.Serializable]
-    public struct Point
-    {
-        public Vector3 point;
-    }
-    
-    public List<Point> points = new List<Point>();
-    
     public override Vector3 GetLocalInterpolation(int pointIndex, float t)
     {
         t = Mathf.Clamp01(t);
         
         Vector4 tVec = new Vector4(t*t*t, t*t, t, 1f);
         Matrix4x4 pointsMatrix = new Matrix4x4(
-            points[pointIndex - 3].point,
-            points[pointIndex - 2].point,
-            points[pointIndex - 1].point,
-            points[pointIndex].point);
+            points[pointIndex - 3],
+            points[pointIndex - 2],
+            points[pointIndex - 1],
+            points[pointIndex]);
 
         return pointsMatrix * constantMatrix * tVec;
     }
@@ -75,24 +67,6 @@ public class B_Spline : Spline
         }
 
         return pointsRst;
-    }
-    
-    public override void Save(string dst)
-    {
-        using (StreamWriter writer = new StreamWriter(dst))
-        {
-            writer.WriteLine(JsonHelper.ToJson(points.ToArray(), true));
-            writer.Close();
-        }
-    }
-    
-    public override void Load(string src)
-    {
-        using (StreamReader reader = new StreamReader(src))
-        {
-            points = new List<Point>(JsonHelper.FromJson<Point>(reader.ReadToEnd()));
-            reader.Close();
-        }
     }
 
     public override int GetMaxIndex()

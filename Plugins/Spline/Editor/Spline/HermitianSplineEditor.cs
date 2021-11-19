@@ -14,28 +14,56 @@ public class HermitianSplineEditor : SplineEditor<HermitianSpline>
         if (self.points.Count > 1)
             Handles.DrawAAPolyLine(self.MakeSplinePoints(m_splineDivision.intValue));
         
-        for (int i = 0; i < self.points.Count; i++)
+        for (int i = self.GetMinIndex(); i <= self.GetMaxIndex(); i += self.GetIndexStep())
         {
             Handles.color = Color.green;
-            Vector3 newPos = Handles.FreeMoveHandle( self.points[i].point, Quaternion.identity,
-                HandleUtility.GetHandleSize( self.points[i].point) * m_pointSize.floatValue, Vector3.one, Handles.SphereHandleCap);
+            Vector3 newPos = Handles.FreeMoveHandle( self.points[i], Quaternion.identity,
+                HandleUtility.GetHandleSize( self.points[i]) * m_pointSize.floatValue, Vector3.one, Handles.SphereHandleCap);
             
             Handles.color = Color.cyan;
-            Handles.DrawLine(self.points[i].point, self.points[i].point + self.points[i].derivative);
+            Handles.DrawLine(self.points[i], self.points[i] + self.points[i + 1]);
 
 
-            Vector3 handlePos = self.points[i].point + self.points[i].derivative;
+            Vector3 handlePos = self.points[i] + self.points[i + 1];
             
             Vector3 newHandlePos = Handles.FreeMoveHandle(handlePos, Quaternion.identity,
                 HandleUtility.GetHandleSize(handlePos) * self.handleSize, Vector3.one, Handles.SphereHandleCap);
 
-            self.points[i] = new HermitianSpline.Point{point = newPos, derivative =  newHandlePos - self.points[i].point};
+            self.points[i] = newPos;
+            self.points[i + 1] = newHandlePos - self.points[i];
         }
     }
     
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
+
+        if (self.points.Count > 1)
+        {
+            GUILayout.Label("Portion control");
+            EditorGUILayout.BeginHorizontal();
+            {
+                if (GUILayout.Button("Add"))
+                {
+                    Vector3 deriv = self.points[self.points.Count - 1];
+                    Vector3 pt = self.points[self.points.Count - 2];
+                    
+                    self.points.Add(pt);
+                    self.points.Add(deriv);
+
+                    EditorUtility.SetDirty(target);
+                }
+
+                if (GUILayout.Button("Remove last"))
+                {
+                    self.points.RemoveAt(self.points.Count - 1);
+                    self.points.RemoveAt(self.points.Count - 1);
+                    EditorUtility.SetDirty(target);
+                }
+
+            }
+            EditorGUILayout.EndHorizontal();
+        }
 
         SplineEditorUtility.DrawUILine(Color.gray);
         GUILayout.Label("Editor settings :");
@@ -68,60 +96,9 @@ public class HermitianSplineEditor : SplineEditor<HermitianSpline>
             if (GUILayout.Button("Close shape"))
             {
                 self.points.Add(self.points[0]);
+                self.points.Add(self.points[1]);
                 EditorUtility.SetDirty(target);
             }
         }
-    }
-
-    void Space2DSetting()
-    {
-                float itemWidth =  EditorGUIUtility.currentViewWidth / 3f - 10f;
-        GUILayout.BeginHorizontal();
-        {
-            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
-            {
-                GUILayout.Label("");
-                if (GUILayout.Button("Apply 2D"))
-                {
-                    switch (m_space2D.enumValueIndex)
-                    {
-                        case 0 : // XY
-                            for (int i = 0; i < self.points.Count; i++)
-                            {
-                                self.points[i] = new HermitianSpline.Point{point = new Vector3{x = self.points[i].point.x, y = self.points[i].point.y, z = m_base.floatValue}, derivative = new Vector3{x = self.points[i].derivative.x, y = self.points[i].derivative.y, z = 0f}};
-                            }
-                            break;
-                        case 1 : // XZ
-                            for (int i = 0; i < self.points.Count; i++)
-                            {
-                                self.points[i] = new HermitianSpline.Point{point = new Vector3{x = self.points[i].point.x, y = m_base.floatValue, z = self.points[i].point.z}, derivative = new Vector3{x = self.points[i].derivative.x, y = 0f, z = self.points[i].derivative.z}};
-                            }
-                            break;
-                        case 2 : // YZ
-                            for (int i = 0; i < self.points.Count; i++)
-                            {
-                                self.points[i] = new HermitianSpline.Point{point = new Vector3{x = m_base.floatValue, y = self.points[i].point.y, z = self.points[i].point.z}, derivative = new Vector3{x = 0f, y = self.points[i].derivative.y, z = self.points[i].derivative.z}};
-                            }
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                    EditorUtility.SetDirty(target);
-                }
-            } GUILayout.EndVertical();
-
-            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
-            {
-                GUILayout.Label("Space");
-                EditorGUILayout.PropertyField(m_space2D, GUIContent.none, false, GUILayout.Width(itemWidth));
-            } GUILayout.EndVertical();
-
-            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
-            {
-                GUILayout.Label("Base");
-                EditorGUILayout.PropertyField(m_base, GUIContent.none, false, GUILayout.Width(itemWidth));
-            } GUILayout.EndVertical();
-            
-        } GUILayout.EndHorizontal();
     }
 }

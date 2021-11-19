@@ -54,19 +54,18 @@ public class BezierPatchEditor : Editor
                 bool isDirectionHandle = isContinues && i + 3 < curve.points.Count && i % 4 - 2 == 0;
 
                 Handles.color = isVelocityHandle ? Color.cyan : isDirectionHandle ? Color.blue : Color.green;
-                Vector3 newPos = Handles.FreeMoveHandle(curve.points[i].point, Quaternion.identity,
-                    HandleUtility.GetHandleSize(curve.points[i].point) * pointSize, Vector3.one,
+                Vector3 newPos = Handles.FreeMoveHandle(curve.points[i], Quaternion.identity,
+                    HandleUtility.GetHandleSize(curve.points[i]) * pointSize, Vector3.one,
                     Handles.SphereHandleCap);
 
                 if (isVelocityHandle)
                 {
-                    Vector3 dir = Vector3.Normalize(curve.points[i - 2].point - curve.points[i - 3].point);
-                    float velocity = Vector3.Magnitude(newPos - curve.points[i - 1].point);
-                    curve.points[i] = new BezierSpline.Point
-                        {point = curve.points[i - 1].point + dir * velocity};
+                    Vector3 dir = Vector3.Normalize(curve.points[i - 2] - curve.points[i - 3]);
+                    float velocity = Vector3.Magnitude(newPos - curve.points[i - 1]);
+                    curve.points[i] = curve.points[i - 1] + dir * velocity;
                 }
                 else
-                    curve.points[i] = new BezierSpline.Point {point = newPos};
+                    curve.points[i] = newPos;
             }
         }
     }

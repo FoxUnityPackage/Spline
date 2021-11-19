@@ -30,18 +30,17 @@ public class BezierSplineEditor : SplineEditor<BezierSpline>
                 Handles.color = Color.green;
             }
 
-            Vector3 newPos = Handles.FreeMoveHandle( self.points[i].point, Quaternion.identity,
-                HandleUtility.GetHandleSize( self.points[i].point) * m_pointSize.floatValue, Vector3.one, Handles.SphereHandleCap);
+            Vector3 newPos = Handles.FreeMoveHandle( self.points[i], Quaternion.identity,
+                HandleUtility.GetHandleSize( self.points[i]) * m_pointSize.floatValue, Vector3.one, Handles.SphereHandleCap);
 
             if (isVelocityHandle)
             {
-                Vector3 dir = Vector3.Normalize(self.points[i - 2].point - self.points[i - 3].point);
-                float velocity = Vector3.Magnitude(newPos - self.points[i - 1].point);
-                self.points[i] = new BezierSpline.Point
-                    {point = self.points[i - 1].point + dir * velocity};
+                Vector3 dir = Vector3.Normalize(self.points[i - 2] - self.points[i - 3]);
+                float velocity = Vector3.Magnitude(newPos - self.points[i - 1]);
+                self.points[i] = self.points[i - 1] + dir * velocity;
             }
             else
-                self.points[i] = new BezierSpline.Point{point = newPos};
+                self.points[i] = newPos;
 
         }
     }
@@ -50,35 +49,39 @@ public class BezierSplineEditor : SplineEditor<BezierSpline>
     {
         base.OnInspectorGUI();
 
-        GUILayout.Label("Portion control");
-        EditorGUILayout.BeginHorizontal();
+        if (self.points.Count > 3)
         {
-            if (GUILayout.Button("Add"))
+            GUILayout.Label("Portion control");
+            EditorGUILayout.BeginHorizontal();
             {
-                BezierSpline.Point pt1 = self.points[self.points.Count - 1];
-                BezierSpline.Point pt2 = self.points[self.points.Count - 2];
-                BezierSpline.Point pt3 = self.points[self.points.Count - 3];
-                BezierSpline.Point pt4 = self.points[self.points.Count - 4];
-                Vector3 dir = pt1.point - pt4.point;
-                
-                self.points.Add(pt1);
-                self.points.Add(new BezierSpline.Point{ point = pt3.point + dir});
-                self.points.Add(new BezierSpline.Point{ point = pt2.point + dir});
-                self.points.Add(new BezierSpline.Point{ point = pt1.point + dir});
-                
-                EditorUtility.SetDirty(target);
+                if (GUILayout.Button("Add"))
+                {
+                    Vector3 pt1 = self.points[self.points.Count - 1];
+                    Vector3 pt2 = self.points[self.points.Count - 2];
+                    Vector3 pt3 = self.points[self.points.Count - 3];
+                    Vector3 pt4 = self.points[self.points.Count - 4];
+                    Vector3 dir = pt1 - pt4;
+
+                    self.points.Add(pt1);
+                    self.points.Add(pt3 + dir);
+                    self.points.Add(pt2 + dir);
+                    self.points.Add(pt1 + dir);
+
+                    EditorUtility.SetDirty(target);
+                }
+
+                if (GUILayout.Button("Remove last"))
+                {
+                    self.points.RemoveAt(self.points.Count - 1);
+                    self.points.RemoveAt(self.points.Count - 1);
+                    self.points.RemoveAt(self.points.Count - 1);
+                    self.points.RemoveAt(self.points.Count - 1);
+                    EditorUtility.SetDirty(target);
+                }
+
             }
-            
-            if (GUILayout.Button("Remove last"))
-            {
-                self.points.RemoveAt(self.points.Count - 1);
-                self.points.RemoveAt(self.points.Count - 1);
-                self.points.RemoveAt(self.points.Count - 1);
-                self.points.RemoveAt(self.points.Count - 1);
-                EditorUtility.SetDirty(target);
-            }
-            
-        } EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
+        }
 
         SplineEditorUtility.DrawUILine(Color.gray);
         GUILayout.Label("Editor settings :");
@@ -153,57 +156,5 @@ public class BezierSplineEditor : SplineEditor<BezierSpline>
                 EditorUtility.SetDirty(target);
             }
         }
-    }
-    
-    void Space2DSetting()
-    {
-                float itemWidth =  EditorGUIUtility.currentViewWidth / 3f - 10f;
-        GUILayout.BeginHorizontal();
-        {
-            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
-            {
-                GUILayout.Label("");
-                if (GUILayout.Button("Apply 2D"))
-                {
-                    switch (m_space2D.enumValueIndex)
-                    {
-                        case 0 : // XY
-                            for (int i = 0; i < self.points.Count; i++)
-                            {
-                                self.points[i] = new BezierSpline.Point{point = new Vector3{x = self.points[i].point.x, y = self.points[i].point.y, z = m_base.floatValue}};
-                            }
-                            break;
-                        case 1 : // XZ
-                            for (int i = 0; i < self.points.Count; i++)
-                            {
-                                self.points[i] = new BezierSpline.Point{point = new Vector3{x = self.points[i].point.x, y = m_base.floatValue, z = self.points[i].point.z}};
-                            }
-                            break;
-                        case 2 : // YZ
-                            for (int i = 0; i < self.points.Count; i++)
-                            {
-                                self.points[i] = new BezierSpline.Point{point = new Vector3{x = m_base.floatValue, y = self.points[i].point.y, z = self.points[i].point.z}};
-                            }
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                    EditorUtility.SetDirty(target);
-                }
-            } GUILayout.EndVertical();
-
-            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
-            {
-                GUILayout.Label("Space");
-                EditorGUILayout.PropertyField(m_space2D, GUIContent.none, false, GUILayout.Width(itemWidth));
-            } GUILayout.EndVertical();
-
-            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
-            {
-                GUILayout.Label("Base");
-                EditorGUILayout.PropertyField(m_base, GUIContent.none, false, GUILayout.Width(itemWidth));
-            } GUILayout.EndVertical();
-            
-        } GUILayout.EndHorizontal();
     }
 }

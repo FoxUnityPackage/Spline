@@ -1,4 +1,3 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,10 +16,8 @@ public class B_SplineEditor : SplineEditor<B_Spline>
         for (int i = 0; i < self.points.Count; i++)
         {
             Handles.color = Color.green;
-            Vector3 newPos = Handles.FreeMoveHandle( self.points[i].point, Quaternion.identity,
-                HandleUtility.GetHandleSize( self.points[i].point) * m_pointSize.floatValue, Vector3.one, Handles.SphereHandleCap);
-            
-            self.points[i] = new B_Spline.Point{point = newPos};
+            self.points[i] = Handles.FreeMoveHandle( self.points[i], Quaternion.identity,
+                HandleUtility.GetHandleSize( self.points[i]) * m_pointSize.floatValue, Vector3.one, Handles.SphereHandleCap);
         }
     }
 
@@ -46,57 +43,5 @@ public class B_SplineEditor : SplineEditor<B_Spline>
         ImportExportSetting();
         
         serializedObject.ApplyModifiedProperties();
-    }
-
-    void Space2DSetting()
-    {
-                float itemWidth =  EditorGUIUtility.currentViewWidth / 3f - 10f;
-        GUILayout.BeginHorizontal();
-        {
-            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
-            {
-                GUILayout.Label("");
-                if (GUILayout.Button("Apply 2D"))
-                {
-                    switch (m_space2D.enumValueIndex)
-                    {
-                        case 0 : // XY
-                            for (int i = 0; i < self.points.Count; i++)
-                            {
-                                self.points[i] = new B_Spline.Point{point = new Vector3{x = self.points[i].point.x, y = self.points[i].point.y, z = m_base.floatValue}};
-                            }
-                            break;
-                        case 1 : // XZ
-                            for (int i = 0; i < self.points.Count; i++)
-                            {
-                                self.points[i] = new B_Spline.Point{point = new Vector3{x = self.points[i].point.x, y = m_base.floatValue, z = self.points[i].point.z}};
-                            }
-                            break;
-                        case 2 : // YZ
-                            for (int i = 0; i < self.points.Count; i++)
-                            {
-                                self.points[i] = new B_Spline.Point{point = new Vector3{x = m_base.floatValue, y = self.points[i].point.y, z = self.points[i].point.z}};
-                            }
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                    EditorUtility.SetDirty(target);
-                }
-            } GUILayout.EndVertical();
-
-            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
-            {
-                GUILayout.Label("Space");
-                EditorGUILayout.PropertyField(m_space2D, GUIContent.none, false, GUILayout.Width(itemWidth));
-            } GUILayout.EndVertical();
-
-            GUILayout.BeginVertical(GUILayout.Width(itemWidth));
-            {
-                GUILayout.Label("Base");
-                EditorGUILayout.PropertyField(m_base, GUIContent.none, false, GUILayout.Width(itemWidth));
-            } GUILayout.EndVertical();
-            
-        } GUILayout.EndHorizontal();
     }
 }

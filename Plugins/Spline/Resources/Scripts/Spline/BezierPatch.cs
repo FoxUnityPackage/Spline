@@ -11,11 +11,11 @@ public class BezierPatch : Patch
         t = Mathf.Clamp01(t);
 
         BezierSpline splineRst = new BezierSpline();
-        splineRst.points = new List<BezierSpline.Point>(4);
+        splineRst.points = new List<Vector3>(4);
 
         for (int i = pointIndexU; i < 4; i++)
         {
-            splineRst.points.Add(new BezierSpline.Point {point = curves[i].GetLocalInterpolation(pointIndexV, s)});
+            splineRst.points.Add(curves[i].GetLocalInterpolation(pointIndexV, s));
         }
 
         return splineRst.GetLocalInterpolation(0, t);

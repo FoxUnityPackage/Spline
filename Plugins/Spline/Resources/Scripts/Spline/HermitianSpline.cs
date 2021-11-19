@@ -12,18 +12,10 @@ public class HermitianSpline : Spline
             new Vector4(1f, 0f, 0f, 0f)
         );
     
-    [System.Serializable]
-    public struct Point
-    {
-        public Vector3 point;
-        public Vector3 derivative;
-    }
-    
 #if UNITY_EDITOR
     [HideInInspector] public float handleSize = 0.25f;
 #endif
     
-    public List<Point> points = new List<Point>();
     
     public override Vector3 GetLocalInterpolation(int pointIndex, float t)
     {
@@ -31,34 +23,35 @@ public class HermitianSpline : Spline
         
         Vector4 tVec = new Vector4(t*t*t, t*t, t, 1f);
         Matrix4x4 pointsMatrix = new Matrix4x4(
-            points[pointIndex].point,
-            points[pointIndex + 1].point,
-            points[pointIndex].derivative,
-            points[pointIndex + 1].derivative);
+            points[pointIndex],
+            points[pointIndex + 2],
+            points[pointIndex + 1],
+            points[pointIndex + 3]);
 
         return pointsMatrix * constantMatrix * tVec;
     }
     
     public override Vector3[] MakeSplinePoints(int divisionBySpline)
     {
-        if (points.Count < 2)
+        if (points.Count < 4)
             return null;
         
-        Vector3[] pointsRst = new Vector3[divisionBySpline * (points.Count - 1) + 1];
+        int totalPoint = (GetMaxIndex() - points.Count % GetIndexStep()) / GetIndexStep();
+        Vector3[] pointsRst = new Vector3[divisionBySpline * totalPoint + 1];
         float step = 1f / divisionBySpline;
-        
-        for (int i = 0; i < points.Count - 1; i++)
+
+        for (int i = 0; i < totalPoint; i++)
         {
             float t = 0f;
             for (int j = 0; j < divisionBySpline; j++)
             {
-                pointsRst[i * divisionBySpline + j] = GetLocalInterpolation(i, t);
+                pointsRst[i * divisionBySpline + j] = GetLocalInterpolation(i * GetIndexStep(), t);
                 t += step;
             }
         }
         
-        // Inlude the last point
-        pointsRst[pointsRst.Length - 1] = GetLocalInterpolation(points.Count - 2, 1f);
+        // Include the last point
+        pointsRst[pointsRst.Length - 1] = GetLocalInterpolation((totalPoint - 1) * GetIndexStep(), 1f);
 
         return pointsRst;
     }
@@ -81,27 +74,9 @@ public class HermitianSpline : Spline
         return pointsRst;
     }
     
-    public override void Save(string dst)
-    {
-        using (StreamWriter writer = new StreamWriter(dst))
-        {
-            writer.WriteLine(JsonHelper.ToJson(points.ToArray(), true));
-            writer.Close();
-        }
-    }
-    
-    public override void Load(string src)
-    {
-        using (StreamReader reader = new StreamReader(src))
-        {
-            points = new List<Point>(JsonHelper.FromJson<Point>(reader.ReadToEnd()));
-            reader.Close();
-        }
-    }
-    
     public override int GetMaxIndex()
     {
-        return points.Count - 1;
+        return points.Count - 2;
     }
     
     public override int GetMinIndex()
@@ -111,6 +86,6 @@ public class HermitianSpline : Spline
     
     public override int GetIndexStep()
     {
-        return 1;
+        return 2;
     }
 }

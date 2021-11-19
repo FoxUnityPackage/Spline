@@ -7,7 +7,7 @@ public class PathGenerator : MonoBehaviour
     [SerializeField] public Vector3 biTangeante = Vector3.back;
     public float scale = 0.1f;
     [Min(3)]
-    public int division;
+    public int division = 3;
 
     public void GenerateMesh()
     {

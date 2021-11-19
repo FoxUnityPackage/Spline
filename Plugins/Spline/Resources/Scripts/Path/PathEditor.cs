@@ -51,17 +51,18 @@ public class PathEditor : MonoBehaviour
                             m_editedSpline = pathOwner.GetComponent<CatmullRomSpline>();
                             if (m_editedSpline == null)
                                 m_editedSpline = pathOwner.AddComponent<CatmullRomSpline>();
+                            
                             // Duplicate first point to make sur that spline pass in the first control point
-                            m_editedSpline.points.Add(new CatmullRomSpline.Point {point = hit.point});
-                            m_editedSpline.points.Add(new CatmullRomSpline.Point {point = hit.point});
+                            m_editedSpline.points.Add(hit.point);
+                            m_editedSpline.points.Add(hit.point);
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
                 }
 
-                m_editedSpline.points[m_editedSpline.points.Count - 1] = new CatmullRomSpline.Point {point = hit.point};
-                m_editedSpline.points.Add(new CatmullRomSpline.Point {point = hit.point});
+                m_editedSpline.points[m_editedSpline.points.Count - 1] = hit.point;
+                m_editedSpline.points.Add(hit.point);
                 generator.spline = m_editedSpline;
                 generator.GenerateMesh();
             }
