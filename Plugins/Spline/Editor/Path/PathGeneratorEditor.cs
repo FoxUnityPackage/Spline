@@ -1,9 +1,5 @@
 using UnityEditor;
-using UnityEditor.SceneManagement;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Scene = UnityEngine.SceneManagement.Scene;
 
 // A tiny custom editor for ExampleScript component
 [CustomEditor(typeof(PathGenerator))]
