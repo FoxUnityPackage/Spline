@@ -75,7 +75,7 @@ public abstract class Spline : MonoBehaviour
     /// </param>
     /// <param name="t"> between 0 and 1. This value is clamped internally</param>
     /// <returns></returns>
-    public abstract Vector3[] MakeLocalSplinePoints(int pointIndex, int divisionBySpline);
+    public abstract Vector3[] MakeLocalSplinePoints(int pointIndex, int divisionBySpline, bool addLastValue = false);
     
     /// <summary>
     /// Get the max spline index. Useful to iterate on curves

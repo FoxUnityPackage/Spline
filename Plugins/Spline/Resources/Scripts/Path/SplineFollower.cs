@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// This script allow gameObject to follow a spline with simple interpolation.
+/// Speed is not uniform. Use UniformSplineFollower for uniform speed
+/// </summary>
 public class SplineFollower : MonoBehaviour
 {
     protected float m_t;

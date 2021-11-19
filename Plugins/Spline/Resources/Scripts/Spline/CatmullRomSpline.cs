@@ -57,7 +57,7 @@ public class CatmullRomSpline : Spline
         return pointsRst;
     }
 
-    public override Vector3[] MakeLocalSplinePoints(int pointIndex, int divisionBySpline)
+    public override Vector3[] MakeLocalSplinePoints(int pointIndex, int divisionBySpline, bool addLastPoint = false)
     {
         if (!IsIndexValid(pointIndex))
             return null;
@@ -71,6 +71,10 @@ public class CatmullRomSpline : Spline
             pointsRst[j] = GetLocalInterpolation(pointIndex, t);
             t += step;
         }
+        
+        // Include the last point
+        if (addLastPoint)
+            pointsRst[pointsRst.Length - 1] = GetLocalInterpolation(pointIndex, 1);
 
         return pointsRst;
     }
