@@ -50,6 +50,14 @@ public abstract class Spline : MonoBehaviour
     /// <returns></returns>
     public Vector3 GetGlobalInterpolation(float t)
     {
+        t = Mathf.Clamp01(t);
+        
+        if (t.Equals(1f))
+            return Points[GetMaxIndex()];
+        
+        if (t.Equals(0f))
+            return Points[GetMinIndex()];
+
         float interval = (GetMaxIndex() - GetMinIndex()) / GetIndexStep() * t;
         int index = ((int)(interval) + GetMinIndex()) * GetIndexStep();
         float localT = interval % 1f;
@@ -57,6 +65,17 @@ public abstract class Spline : MonoBehaviour
         return GetLocalInterpolation(index, localT);
     }
 
+    /// <summary>
+    /// Get the direction of the spline based on t in the whole curve
+    /// </summary>
+    /// <param name="t">between 0 and 1. This value is clamped internally</param>
+    /// <param name="epsilon">Delta used to compare positions based on t</param>
+    /// <returns></returns>
+    public Vector3 GetGlobalDirection(float t, float epsilon = 0.0001f)
+    {
+        return (GetGlobalInterpolation(t - epsilon) - GetGlobalInterpolation(t + epsilon)).normalized;
+    }
+    
     /// <summary>
     /// Get array of point based on the whole curve
     /// </summary>
